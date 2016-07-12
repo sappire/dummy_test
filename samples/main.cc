@@ -43,7 +43,7 @@ test3(void)
    ll1.print_ll(start);
    ll1.delete_duplicates_ll(&start);
    ll1.print_ll(start);
-   ll1.is_palindrome(&start);
+   ll1.is_palindrome(&start)? cout << "is a Palindrome\n":cout <<"Not a palindrome\n";
    ll1.delete_ll(&start);
    return 1;
 }

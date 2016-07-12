@@ -122,15 +122,47 @@ ll::reverse_ll(node_t **head, node_t *previous)
 bool 
 ll::is_palindrome(node_t **head)
 {
-  node_t *ptr1 = *head;
-  node_t *ptr2 = *head;
-  for(; ptr2 != NULL; ptr1 = ptr1->next, ptr2 = ptr1->next->next)
-  {
-    ;
-  }
-  cout << ptr1->value << endl;
-  return true;
+    node_t *ptr1 = *head;
+    node_t *ptr2 = *head;
+    node_t *mid = *head;
+    bool palin = false;
+    for(; ptr2 != NULL; ptr1 = ptr1->next, ptr2 = ptr1->next->next)
+    {
+       mid = ptr1;
+    }
+    mid->next = NULL;
+    reverse_ll(&ptr1,NULL);
+    print_ll(ptr1);
+    palin = __is_palindrome(head, &ptr1);
+    reverse_ll(&ptr1,NULL);
+    mid->next = ptr1;
+    print_ll(*head);
+    return palin; 
 }
+
+bool
+ll::__is_palindrome(node_t **head1, node_t **head2)
+{
+    node_t *cur1 = *head1;
+    node_t *cur2 = *head2;
+    while(cur1 != NULL && cur2 != NULL) {
+        if (cur1->value != cur2->value) {
+            return false;
+        }
+        cur1 = cur1->next;
+        cur2 = cur2->next;
+    }
+    if ((cur1 == NULL) && (cur2 == NULL)) {
+        return true;
+    } else if ((cur1 == NULL) && (cur2->next == NULL)) {
+        return true;
+    } else if ((cur2 == NULL) && (cur1->next == NULL)) {
+        return true;
+    }
+
+    return false;
+}
+    
 
 /*
 int main()
