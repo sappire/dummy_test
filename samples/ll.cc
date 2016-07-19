@@ -36,6 +36,21 @@ ll::create_ll_with_duplicates(void)
     return head;
 }
 
+node_t*
+ll::create_ll_palin(void)
+{
+    node_t *head = NULL;
+    node_t *tmp = NULL;
+    tmp = alloc_node(&head, 1);
+    tmp = alloc_node(&tmp, 3);
+    tmp = alloc_node(&tmp, 5);
+    tmp = alloc_node(&tmp, 2);
+    tmp = alloc_node(&tmp, 5);
+    tmp = alloc_node(&tmp, 3);
+    tmp = alloc_node(&tmp, 1);
+    return head;
+}
+
 void 
 ll::print_ll(const node_t * const head)
 {
@@ -98,7 +113,7 @@ ll::size(node_t **head)
     {
         i++;
     }
-    cout << "size is " << i << endl;
+//    cout << "size is " << i << endl;
     return i;
 }
 
@@ -126,7 +141,7 @@ ll::is_palindrome(node_t **head)
     node_t *ptr2 = *head;
     node_t *mid = *head;
     bool palin = false;
-    for(; ptr2 != NULL; ptr1 = ptr1->next, ptr2 = ptr1->next->next)
+    for(; ptr1 != NULL && ptr2 != NULL && ptr2->next != NULL; ptr1 = ptr1->next, ptr2 = ptr2->next->next)
     {
        mid = ptr1;
     }

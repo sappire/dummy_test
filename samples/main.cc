@@ -48,10 +48,24 @@ test3(void)
    return 1;
 }
 
+int
+test4(void)
+{
+   /* palin */
+   cout << "Started Test: " << __func__ << endl;
+   ll ll1;
+   node_t *start = ll1.create_ll_palin();
+   ll1.print_ll(start);
+   ll1.is_palindrome(&start)? cout << "is a Palindrome\n":cout <<"Not a palindrome\n";
+   ll1.delete_ll(&start);
+   return 1;
+}
+
 int main()
 {
    test1();
    test2();
    test3();
+   test4();
    return 1;
 } 
