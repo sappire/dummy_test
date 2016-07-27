@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
 
 #define MAX_COUNT 5
 int var = 0;
@@ -14,6 +16,7 @@ using namespace std;
 void *listen(void *args) {
     pthread_mutex_lock(&mut);
     while (var < MAX_COUNT) {
+        cout << "thread id is " <<  pthread_self() << endl;
         cout << "Giving the mutex to publisher to increment the var. current: "
              << var << endl;
         pthread_cond_wait(&cond, &mut);
@@ -29,6 +32,8 @@ void *publisher(void *args) {
         pthread_mutex_lock(&mut);
         var++;
         if (var == 5) {
+//            cout << "thread tid is " << syscall(SYS_gettid) << endl;
+            cout << "thread id is " <<  pthread_self() << endl;
             cout << "signaling the listener that var is 5" << endl;
             pthread_cond_signal(&cond);
             // This sleep is introduced because by the time the listener
