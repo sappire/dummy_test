@@ -16,6 +16,7 @@ void bint_test1() {
     cout << "\nPOSTORDER: ";
     bt.print_postorder(bt.root_);
     cout << "\nHEIGHT: " << bt.height();
+    cout << "\nIS BT BALANCED: " << bt.is_balanced_bt();
     bt.cleanup_bt(&(bt.root_));
 }
 

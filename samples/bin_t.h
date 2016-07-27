@@ -10,8 +10,10 @@ public:
     void print_postorder(const btnode_t *node);
     void cleanup_bt(btnode_t **node);
     int height(void);
+    bool is_balanced_bt(void); // depth diff between children should be atmost 1
     btnode_t *root_;
 private:
     void __create_node(btnode_t **node, int value);
     int __height(const btnode_t *node);
+    bool __is_balanced_bt(const btnode_t *node); 
 };

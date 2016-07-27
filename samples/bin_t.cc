@@ -70,6 +70,22 @@ BT::height(void) {
     return __height(root_);
 }
 
+bool
+BT::__is_balanced_bt(const btnode_t *node) {
+    if (node == NULL) return true;
+
+    int depth = abs(__height(node->left) - __height(node->right));
+    if ((depth <= 1) &&
+       __is_balanced_bt(node->left) && 
+       __is_balanced_bt(node->right)) return true;
+    return false;
+}
+
+bool
+BT::is_balanced_bt(void) {
+    return __is_balanced_bt(root_);
+}
+
 void
 BT::cleanup_bt(btnode_t **node) {
     if (*node == NULL) return;
