@@ -68,9 +68,6 @@ test5(void)
    /* bit mani */
    cout << "Started Test: " << __func__ << endl;
    uint32_t a[2] = {0,0};
-   uint32_t *head[2];
-   head[0] = &a[0];
-   head[1] = &a[1];
    BM b;
    b.convert64_to_32(1,a);
    cout << "a[0]:" << a[0] << "and a[1]:" << a[1] << endl;

@@ -1,4 +1,5 @@
 #include "bin_t.h"
+#include <stack>
 using namespace std;
 
 BT::BT()
@@ -39,6 +40,25 @@ BT::print_inorder(const btnode_t *node) {
     print_inorder(node->left);
     cout << node->value << " ";
     print_inorder(node->right);
+}
+
+void
+BT::print_inorder_non_recursive(void) {
+    if (root_ == NULL) return;
+    stack<btnode_t *> s;
+    btnode_t *curr = root_;
+    while ((curr != NULL) || (!s.empty())) {
+        
+        if (curr == NULL) {
+            curr = s.top();
+            s.pop();
+            cout << curr->value << " ";
+            curr = curr->right;
+            continue;
+        }
+        s.push(curr);
+        curr = curr->left; 
+    }
 }
 
 void

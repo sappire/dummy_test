@@ -6,6 +6,7 @@ public:
     ~BT();
     void insert(btnode_t **node, int value);
     void print_inorder(const btnode_t *node);
+    void print_inorder_non_recursive(void);
     void print_preorder(const btnode_t *node);
     void print_postorder(const btnode_t *node);
     void cleanup_bt(btnode_t **node);

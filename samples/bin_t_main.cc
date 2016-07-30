@@ -9,8 +9,10 @@ void bint_test1() {
     bt.insert(&(bt.root_), 30); 
     bt.insert(&(bt.root_), 7); 
     bt.insert(&(bt.root_), 3); 
-    cout << "INORDER: ";
+    cout << "INORDER_RECURSIVE: ";
     bt.print_inorder(bt.root_);
+    cout << "\nINORDER_NON_RECURSIVE: ";
+    bt.print_inorder_non_recursive();
     cout << "\nPREORDER: ";
     bt.print_preorder(bt.root_);
     cout << "\nPOSTORDER: ";
