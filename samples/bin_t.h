@@ -8,7 +8,9 @@ public:
     void print_inorder(const btnode_t *node);
     void print_inorder_non_recursive(void);
     void print_preorder(const btnode_t *node);
+    void print_preorder_non_recursive(void);
     void print_postorder(const btnode_t *node);
+    void print_postorder_non_recursive(void);
     void cleanup_bt(btnode_t **node);
     int height(void);
     bool is_balanced_bt(void); // depth diff between children should be atmost 1

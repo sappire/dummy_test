@@ -13,10 +13,14 @@ void bint_test1() {
     bt.print_inorder(bt.root_);
     cout << "\nINORDER_NON_RECURSIVE: ";
     bt.print_inorder_non_recursive();
-    cout << "\nPREORDER: ";
+    cout << "\nPREORDER_RECURSIVE: ";
     bt.print_preorder(bt.root_);
-    cout << "\nPOSTORDER: ";
+    cout << "\nPREORDER_NON_RECURSIVE: ";
+    bt.print_preorder_non_recursive();
+    cout << "\nPOSTORDER_RECURSIVE: ";
     bt.print_postorder(bt.root_);
+    cout << "\nPOSTORDER_NON_RECURSIVE: ";
+    bt.print_postorder_non_recursive();
     cout << "\nHEIGHT: " << bt.height();
     cout << "\nIS BT BALANCED: " << bt.is_balanced_bt();
     bt.cleanup_bt(&(bt.root_));
