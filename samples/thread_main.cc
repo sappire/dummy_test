@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
+#include "thread_t.h"
 
 #define MAX_COUNT 5
 int var = 0;
@@ -71,7 +72,26 @@ void ttest1() {
     pthread_exit(NULL);
 }
 
+class MyThread {
+public:
+    void *test_func(void *) {
+        cout << "Thread id is " << pthread_self() << endl;
+    }
+    void run(){
+        Thrd *internal_thrd = new Thrd((void *)NULL, this->test_func);
+        internal_thrd->join();
+        internal_thrd->exit();
+    }
+};
+
+void ttest2() {
+    cout << "Started thread test: " << __func__ << endl;
+    MyThread thrd1;
+    thrd1.run();
+}
+
 int main() {
     ttest1();
+    ttest2();
     return 1;
 }

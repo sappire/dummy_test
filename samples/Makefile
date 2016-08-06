@@ -4,8 +4,8 @@ LDFLAGS = -pthread
 HEADERS = data_structures.h ll.h bm.h
 SOURCES = ll.cc bm.cc main.cc
 OBJECTS = $(SOURCES:.cc=.o)
-#THREAD_HEADERS = data_structures.h ll.h bm.h
-THREAD_SOURCES = thread_main.cc
+THREAD_HEADERS = thread_t.h
+THREAD_SOURCES = thread_t.cc thread_main.cc
 THREAD_OBJECTS = $(THREAD_SOURCES:.cc=.o)
 BT_HEADERS = data_structures.h bin_t.h 
 BT_SOURCES = bin_t.cc bin_t_main.cc
