@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
+#include "thread_t.h"
 
 #define MAX_COUNT 5
 int var = 0;
@@ -48,6 +49,7 @@ void *publisher(void *args) {
 }
 
 void ttest1() {
+    cout << "---------------------------------------------------------" << endl;
     cout << "Started thread test: " << __func__ << endl;
     pthread_t pub;
     pthread_t lis;
@@ -68,10 +70,59 @@ void ttest1() {
     pthread_cond_destroy(&cond);
     pthread_attr_destroy(&attr);
 
-    pthread_exit(NULL);
+//    pthread_exit(NULL);
+}
+
+class MyThread {
+public:
+    MyThread():count_(0){;}
+    void func(void) {
+        cout << "Child Thread id is " << pthread_self() << endl;
+        pthread_mutex_lock(&mut1);
+        count_++;
+        pthread_cond_signal(&cond1);
+        pthread_mutex_unlock(&mut1);
+    }
+    void run(){
+        cout << "Parent Thread id is " << pthread_self() << endl;
+        pthread_mutex_lock(&mut1);
+        Thrd *internal_thrd = new Thrd(this, MyThread::fptr);
+        pthread_cond_wait(&cond1, &mut1);
+        pthread_mutex_unlock(&mut1);
+        internal_thrd->join();
+        cout << "Parent read value of count is " << count_ << endl;
+    }
+
+    static void *fptr(void *arg) {
+        ((MyThread*)arg)->func();
+        cout << "End of test function execution by Child" << endl;
+        pthread_exit(NULL);
+        return NULL;
+    }
+
+    static void init() {
+        pthread_mutex_init(&mut1, NULL);
+        pthread_cond_init(&cond1, NULL);
+    }
+    static void exit() {
+        pthread_mutex_destroy(&mut1);
+        pthread_cond_destroy(&cond1);
+        pthread_exit(NULL);
+    }
+    int count_;
+};
+
+void ttest2() {
+    cout << "---------------------------------------------------------" << endl;
+    cout << "Started thread test: " << __func__ << endl;
+    MyThread::init();
+    MyThread thrd1;
+    thrd1.run();
+    MyThread::exit();
 }
 
 int main() {
     ttest1();
+    ttest2();
     return 1;
 }
