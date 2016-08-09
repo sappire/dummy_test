@@ -25,6 +25,7 @@ Graph::toposort_util(int idx, stack<int> &s) {
 
 void 
 Graph::toposort(void) {
+    cout << "TOPOSORT: ";
     stack<int> s;
     visited_ = new bool[num_vertices_];
     for (int i=0; i < num_vertices_; i++) {
@@ -36,12 +37,41 @@ Graph::toposort(void) {
             toposort_util(i, s);
         }
     }
-
+    
     while(!s.empty()) {
         cout << s.top() << " ";
         s.pop();
     }
-
-    delete [] adj_;
+    cout << endl;
     delete [] visited_;
+}
+
+void  
+Graph::dfs_util(int idx) {
+    visited_[idx] = true;
+    cout << idx << " ";
+    list<int>::iterator it;
+    for (it = adj_[idx].begin(); it != adj_[idx].end(); ++it) {
+        if (visited_[*it] == false) {
+            dfs_util(*it);
+        }
+    }
+}
+
+void 
+Graph::dfs(int vertex) {
+    cout << "DFS from vertex \"" << vertex << "\" is : ";
+    visited_ = new bool[num_vertices_];
+    for (int i=0; i < num_vertices_; i++) {
+        visited_[i] = false;
+    }
+
+    dfs_util(vertex);
+
+    cout << endl;
+    delete [] visited_;
+}
+ 
+Graph::~Graph() {
+    delete[] adj_;
 }
