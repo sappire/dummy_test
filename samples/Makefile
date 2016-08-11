@@ -13,6 +13,9 @@ BT_OBJECTS = $(BT_SOURCES:.cc=.o)
 GRAPH_HEADERS = data_structures.h graph.h
 GRAPH_SOURCES = graph.cc graph_main.cc
 GRAPH_OBJECTS = $(GRAPH_SOURCES:.cc=.o)
+SORT_HEADERS = data_structures.h sort.h
+SORT_SOURCES = sort.cc sort_main.cc
+SORT_OBJECTS = $(SORT_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -27,6 +30,9 @@ bin_t%.o: bin_t%.cc $(BT_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
 graph%.o: graph%.cc $(GRAPH_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+sort%.o: sort%.cc $(SORT_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
@@ -46,6 +52,9 @@ bin_t_test: $(BT_OBJECTS)
 graph_test: $(GRAPH_OBJECTS)
 	$(CC) $(GRAPH_OBJECTS) -o $@
 
+sort_test: $(SORT_OBJECTS)
+	$(CC) $(SORT_OBJECTS) -o $@
+
 ll_clean:
 	-rm -f $(OBJECTS)
 	-rm -f ll 
@@ -58,3 +67,4 @@ clean:
 	-rm -f thread_test 
 	-rm -f bin_t_test 
 	-rm -f graph_test 
+	-rm -f sort_test 
