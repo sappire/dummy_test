@@ -72,6 +72,42 @@ Graph::dfs(int vertex) {
     delete [] visited_;
 }
  
+void  
+Graph::bfs_util(queue<int> &q) {
+
+    int idx = 0; 
+    while (!q.empty()) {
+        idx = q.front();
+        q.pop();
+        cout << idx << " ";
+    
+        list<int>::iterator it;
+        for (it = adj_[idx].begin(); it != adj_[idx].end(); ++it) {
+            if (visited_[*it] == false) {
+                visited_[*it] = true;
+                q.push(*it);
+            }
+        }
+    }
+    return;
+}
+
+void 
+Graph::bfs(int vertex) {
+    cout << "BFS from vertex \"" << vertex << "\" is : ";
+    visited_ = new bool[num_vertices_];
+    for (int i=0; i < num_vertices_; i++) {
+        visited_[i] = false;
+    }
+    queue<int> q;
+    visited_[vertex] = true;
+    q.push(vertex);
+    bfs_util(q);
+
+    cout << endl;
+    delete [] visited_;
+}
+
 Graph::~Graph() {
     delete[] adj_;
 }
