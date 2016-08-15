@@ -1,4 +1,7 @@
 #include "data_structures.h"
+#include <vector>
+
+using namespace std;
 
 class BT {
 public:
@@ -13,10 +16,14 @@ public:
     void print_postorder_non_recursive(void);
     void cleanup_bt(btnode_t **node);
     int height(void);
+    int size(void);
+    bool has_pathsum(int sum);
     bool is_balanced_bt(void); // depth diff between children should be atmost 1
     btnode_t *root_;
 private:
     void __create_node(btnode_t **node, int value);
-    int __height(const btnode_t *node);
+    int __height(const btnode_t *const node);
+    int __size(const btnode_t * const node);
     bool __is_balanced_bt(const btnode_t *node); 
+    void __pathsum(btnode_t *node, vector<int> &pathsum, int &index, int curr_sum);
 };

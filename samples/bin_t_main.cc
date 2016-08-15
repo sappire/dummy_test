@@ -22,7 +22,10 @@ void bint_test1() {
     cout << "\nPOSTORDER_NON_RECURSIVE: ";
     bt.print_postorder_non_recursive();
     cout << "\nHEIGHT: " << bt.height();
+    cout << "\nNUM OF NODES: " << bt.size();
     cout << "\nIS BT BALANCED: " << bt.is_balanced_bt();
+    cout << "\nHAS PATH SUM 40 ? " << bt.has_pathsum(40);
+    cout << endl;
     bt.cleanup_bt(&(bt.root_));
 }
 

@@ -62,24 +62,11 @@ test4(void)
    return 1;
 }
 
-int
-test5(void)
-{
-   /* bit mani */
-   cout << "Started Test: " << __func__ << endl;
-   uint32_t a[2] = {0,0};
-   BM b;
-   b.convert64_to_32(1,a);
-   cout << "a[0]:" << a[0] << "and a[1]:" << a[1] << endl;
-   return 1;
-}
-
 int main()
 {
    test1();
    test2();
    test3();
    test4();
-   test5();
    return 1;
 } 

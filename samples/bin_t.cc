@@ -1,6 +1,5 @@
 #include "bin_t.h"
 #include <stack>
-using namespace std;
 
 BT::BT()
     :root_(NULL) {
@@ -31,6 +30,17 @@ BT::insert(btnode_t **node, int value) {
         return;
     }
     insert(&(*node)->right, value);
+}
+
+int
+BT::__size(const btnode_t * const node) {
+    if(node == NULL) return 0;
+    return __size(node->left) + __size(node->right) + 1;
+}
+
+int 
+BT::size(void) {
+    return __size(root_);
 }
 
 void
@@ -144,7 +154,7 @@ BT::print_postorder_non_recursive(void) {
 }
 
 int
-BT::__height(const btnode_t *node) {
+BT::__height(const btnode_t *const node) {
     if (node == NULL) return -1;
 
     return max(__height(node->left), __height(node->right)) + 1;
@@ -169,6 +179,31 @@ BT::__is_balanced_bt(const btnode_t *node) {
 bool
 BT::is_balanced_bt(void) {
     return __is_balanced_bt(root_);
+}
+
+void
+BT::__pathsum(btnode_t *node, vector<int> &pathsum, int &index, int curr_sum) {
+    if (node == NULL) return;
+    if (pathsum.size() < (index + 1)) {
+        pathsum.push_back((curr_sum + node->value));
+    } else {
+        pathsum[index] += node->value;
+    }
+    curr_sum = pathsum[index];
+    __pathsum(node->left, pathsum, index, curr_sum);
+    __pathsum(node->right, pathsum, ++index, curr_sum);
+}
+
+bool
+BT::has_pathsum(int sum) {
+    vector<int> pathsum;
+    int index = 0;
+    int curr_sum = 0;
+    __pathsum(root_, pathsum, index, curr_sum);
+    for (int i=0; i < pathsum.size(); i++) {
+        if (pathsum[i] == sum) return true;
+    }
+    return false;
 }
 
 void
