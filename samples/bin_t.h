@@ -1,5 +1,6 @@
 #include "data_structures.h"
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -25,5 +26,6 @@ private:
     int __height(const btnode_t *const node);
     int __size(const btnode_t * const node);
     bool __is_balanced_bt(const btnode_t *node); 
-    void __pathsum(btnode_t *node, vector<int> &pathsum, int &index, int curr_sum);
+    void __pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int> *> &pathmap,
+                   int &index, int curr_sum);
 };

@@ -182,26 +182,45 @@ BT::is_balanced_bt(void) {
 }
 
 void
-BT::__pathsum(btnode_t *node, vector<int> &pathsum, int &index, int curr_sum) {
+BT::__pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int> *> &pathmap, 
+              int &index, int curr_sum) {
     if (node == NULL) return;
     if (pathsum.size() < (index + 1)) {
         pathsum.push_back((curr_sum + node->value));
+        pathmap.insert(pair<int,vector<int> *>(index, new vector<int>()));
     } else {
         pathsum[index] += node->value;
     }
     curr_sum = pathsum[index];
-    __pathsum(node->left, pathsum, index, curr_sum);
-    __pathsum(node->right, pathsum, ++index, curr_sum);
+    pathmap[index]->push_back(node->value);
+    __pathsum(node->left, pathsum, pathmap, index, curr_sum);
+    __pathsum(node->right, pathsum, pathmap, ++index, curr_sum);
 }
 
 bool
 BT::has_pathsum(int sum) {
     vector<int> pathsum;
+    unordered_map<int,vector<int> *> pathmap;
     int index = 0;
     int curr_sum = 0;
-    __pathsum(root_, pathsum, index, curr_sum);
+    __pathsum(root_, pathsum, pathmap, index, curr_sum);
     for (int i=0; i < pathsum.size(); i++) {
-        if (pathsum[i] == sum) return true;
+        if (pathsum[i] == sum) {
+            vector<int> &ref = (*pathmap[i]);
+            cout << "{";
+            for (int j=0; j < ref.size(); j++) {
+                cout << ref[j] << " ";
+            }
+            cout << "}, ";
+            return true;
+        }
+    }
+
+    if (pathmap.size() > 0) {
+        unordered_map<int, vector<int> *>::iterator it;
+        for (it = pathmap.begin(); it != pathmap.end(); ++it) {
+            delete it->second;
+        }
     }
     return false;
 }
