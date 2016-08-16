@@ -19,6 +19,8 @@ public:
     int height(void);
     int size(void);
     bool has_pathsum(int sum);
+    void mirror(void);
+    void mirror_non_recursive(void);
     bool is_balanced_bt(void); // depth diff between children should be atmost 1
     btnode_t *root_;
 private:
@@ -28,4 +30,5 @@ private:
     bool __is_balanced_bt(const btnode_t *node); 
     void __pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int> *> &pathmap,
                    int &index, int curr_sum);
+    void __mirror(btnode_t *node);
 };

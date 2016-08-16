@@ -226,6 +226,44 @@ BT::has_pathsum(int sum) {
 }
 
 void
+BT::__mirror(btnode_t *node) {
+    if (node == NULL) return;
+    btnode_t *tmp = node->left;
+    node->left = node->right;
+    node->right = tmp;
+    __mirror(node->left);
+    __mirror(node->right);
+}
+
+void
+BT::mirror(void) {
+    __mirror(root_);
+}
+
+void
+BT::mirror_non_recursive(void) {
+    btnode_t *curr = root_;
+    btnode_t *tmp = NULL;
+    stack<btnode_t *> s;
+    while((curr != NULL) || (!s.empty())) {
+        if (curr != NULL) {
+            tmp = curr->left;
+            curr->left = curr->right;
+            curr->right = tmp;
+            if (curr->right != NULL) {
+                s.push(curr->right);
+            }
+            curr = curr->left;
+            continue;
+        }
+        if (!s.empty()) {
+            curr = s.top();
+            s.pop();
+        }
+    }
+}
+
+void
 BT::cleanup_bt(btnode_t **node) {
     if (*node == NULL) return;
 

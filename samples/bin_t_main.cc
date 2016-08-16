@@ -23,8 +23,14 @@ void bint_test1() {
     bt.print_postorder_non_recursive();
     cout << "\nHEIGHT: " << bt.height();
     cout << "\nNUM OF NODES: " << bt.size();
-    cout << "\nIS BT BALANCED: " << bt.is_balanced_bt();
-    cout << "\nHAS PATH SUM 40 ? " << bt.has_pathsum(40);
+    cout << "\nIS BT BALANCED? " << status((enabled_t)bt.is_balanced_bt());
+    cout << "\nHAS PATH SUM 40? " << bt.has_pathsum(40);
+    bt.mirror_non_recursive();
+    cout << "\nINORDER after MIRROR NON RECURSIVE: ";
+    bt.print_inorder_non_recursive();
+    bt.mirror();
+    cout << "\nINORDER after 2 times MIRROR RECURSIVE: ";
+    bt.print_inorder_non_recursive();
     cout << endl;
     bt.cleanup_bt(&(bt.root_));
 }

@@ -12,3 +12,13 @@ typedef struct btnode {
     struct btnode *left;
     struct btnode *right;
 } btnode_t;
+
+enum enabled_t{
+    FALSE = 0,
+    TRUE
+};
+
+static inline const char* 
+status(enabled_t var) {
+    return (var == FALSE)?"false":"true";
+}
