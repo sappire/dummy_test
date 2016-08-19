@@ -2,12 +2,14 @@
 #include <stack>
 
 BT::BT()
-    :root_(NULL) {
+    :root1_(NULL),
+     root2_(NULL) {
 // Empty as of now
 }
 
 BT::~BT() {
-    root_ = NULL;
+    root1_ = NULL;
+    root2_ = NULL;
 }
 
 void
@@ -32,6 +34,24 @@ BT::insert(btnode_t **node, int value) {
     insert(&(*node)->right, value);
 }
 
+void
+BT::create_tree1(void) {
+    insert(&root1_, 20);
+    insert(&root1_, 10);
+    insert(&root1_, 30);
+    insert(&root1_, 7);
+    insert(&root1_, 3);
+}
+
+void
+BT::create_tree2(void) {
+    insert(&root2_, 20);
+    insert(&root2_, 10);
+    insert(&root2_, 30);
+    insert(&root2_, 40);
+    insert(&root2_, 3);
+}
+
 int
 BT::__size(const btnode_t * const node) {
     if(node == NULL) return 0;
@@ -40,7 +60,7 @@ BT::__size(const btnode_t * const node) {
 
 int 
 BT::size(void) {
-    return __size(root_);
+    return __size(root1_);
 }
 
 void
@@ -57,9 +77,9 @@ BT::print_inorder_non_recursive(void) {
 /* Navigate through all the left nodes and push them in to the stack. Once curr node is 
  * NULL, then pop the item, print it and then make the right child of it as the current node.
  */
-    if (root_ == NULL) return;
+    if (root1_ == NULL) return;
     stack<btnode_t *> s;
-    btnode_t *curr = root_;
+    btnode_t *curr = root1_;
     while ((curr != NULL) || (!s.empty())) {
         
         if (curr == NULL) {
@@ -88,9 +108,9 @@ BT::print_preorder_non_recursive(void) {
  * to the stack. Once curr node is NULL, then pop the item, print it and then make the 
  * right child of it as the current node.
  */
-    if (root_ == NULL) return;
+    if (root1_ == NULL) return;
     stack<btnode_t *> s;
-    btnode_t *curr = root_;
+    btnode_t *curr = root1_;
     while ((curr != NULL) || (!s.empty())) {
         if (curr == NULL) {
             curr = s.top();
@@ -123,9 +143,9 @@ BT::print_postorder_non_recursive(void) {
  *        child and make current as right child. 
  *     b. If No, then print the current element and make curr = NULL;
  */
-    if (root_ == NULL) return;
+    if (root1_ == NULL) return;
     stack<btnode_t *> s;
-    btnode_t *curr = root_;
+    btnode_t *curr = root1_;
     btnode_t *tmp = NULL;
     while ((curr != NULL) || (!s.empty())) {
         if (curr != NULL) {
@@ -162,7 +182,7 @@ BT::__height(const btnode_t *const node) {
 
 int 
 BT::height(void) {
-    return __height(root_);
+    return __height(root1_);
 }
 
 bool
@@ -178,7 +198,7 @@ BT::__is_balanced_bt(const btnode_t *node) {
 
 bool
 BT::is_balanced_bt(void) {
-    return __is_balanced_bt(root_);
+    return __is_balanced_bt(root1_);
 }
 
 void
@@ -203,7 +223,7 @@ BT::has_pathsum(int sum) {
     unordered_map<int,vector<int> *> pathmap;
     int index = 0;
     int curr_sum = 0;
-    __pathsum(root_, pathsum, pathmap, index, curr_sum);
+    __pathsum(root1_, pathsum, pathmap, index, curr_sum);
     for (int i=0; i < pathsum.size(); i++) {
         if (pathsum[i] == sum) {
             vector<int> &ref = (*pathmap[i]);
@@ -237,12 +257,12 @@ BT::__mirror(btnode_t *node) {
 
 void
 BT::mirror(void) {
-    __mirror(root_);
+    __mirror(root1_);
 }
 
 void
 BT::mirror_non_recursive(void) {
-    btnode_t *curr = root_;
+    btnode_t *curr = root1_;
     btnode_t *tmp = NULL;
     stack<btnode_t *> s;
     while((curr != NULL) || (!s.empty())) {
@@ -261,6 +281,36 @@ BT::mirror_non_recursive(void) {
             s.pop();
         }
     }
+}
+
+void
+BT::__duplicate_bt(btnode_t *node) {
+    if (node == NULL) return;
+    btnode_t *dup = NULL;
+    __create_node(&dup, node->value);
+    dup->left = node->left;
+    node->left = dup;
+    __duplicate_bt(dup->left);
+    __duplicate_bt(node->right);
+}
+
+void
+BT::duplicate_bt(void) {
+    /* Need to make a duplicate of each node. Place the new node as the 
+     * left child of current node. The resulting should also be BT. */
+    return __duplicate_bt(root1_);
+}
+
+bool
+BT::same_tree(btnode_t *a, btnode_t *b) {
+    if ((a == NULL) && (b == NULL)) {
+        return true;
+    } else if ((a == NULL) || (b == NULL)) {
+        return false;
+    }
+    return ((a->value == b->value) &&
+            (same_tree(a->left , b->left)) && 
+            (same_tree(a->right , b->right)));
 }
 
 void
