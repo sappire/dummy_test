@@ -30,6 +30,12 @@ void stest1() {
     s.bubble_sort(b_b);
     cout << "BUBBLE SORT: ";
     s.print_sort(b_b);
+
+    int E[] = {33, 2,22234,309,20,43,0,6};
+    vector<int>q_q(E, E + sizeof(E)/sizeof(E[0]));
+    s.quick_sort(q_q, 0, q_q.size()-1);
+    cout << "QUICK SORT: ";
+    s.print_sort(q_q);
 }
 
 int main() {

@@ -119,3 +119,28 @@ Sort::bubble_sort(vector<int> &A) {
     }
     
 }
+
+int 
+Sort::partition(vector<int> &A, int s, int h) {
+    int pivot = A[h];
+    int i = s-1;
+    for (int j=s; j < h; j++) {
+        if (A[j] <= pivot) {
+            int tmp = A[++i];
+            A[i] = A[j];
+            A[j] = tmp;
+        }
+    }
+    A[h] = A[++i];
+    A[i] = pivot;
+    return i;
+}
+
+void 
+Sort::quick_sort(vector<int> &A, int s, int h) {
+    if (s>=h) return;
+    cout << "s is" << s << " h is " << h << endl;
+    int p = partition(A,s,h);
+    quick_sort(A,s,p-1);
+    quick_sort(A,p+1,h);
+}
