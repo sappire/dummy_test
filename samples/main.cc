@@ -90,6 +90,18 @@ void test5(void)
     cout << "size of sample struct without packing but gets padded is "<< sizeof(sample2_t) << endl;
 }
 
+void test6(void)
+{
+    typedef struct sample3 {
+        int h;
+        char a;
+        char b;
+        void *x;
+    } __attribute__ ((aligned(64))) sample3_t;
+
+    cout << "size of cache aligned structure is "<< sizeof(sample3_t) << endl;
+}
+
 int main()
 {
    test1();
@@ -97,5 +109,6 @@ int main()
    test3();
    test4();
    test5();
+   test6();
    return 1;
 } 
