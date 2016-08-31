@@ -19,6 +19,9 @@ SORT_OBJECTS = $(SORT_SOURCES:.cc=.o)
 BM_HEADERS = data_structures.h bm.h
 BM_SOURCES = bm.cc bm_main.cc
 BM_OBJECTS = $(BM_SOURCES:.cc=.o)
+STRING_HEADERS = string_h.h
+STRING_SOURCES = string_h.cc string_main.cc
+STRING_OBJECTS = $(STRING_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -41,6 +44,8 @@ sort%.o: sort%.cc $(SORT_HEADERS)
 bm%.o: bm%.cc $(BM_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
+string%.o: string%.cc $(STRING_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
@@ -64,6 +69,9 @@ sort_test: $(SORT_OBJECTS)
 
 bm_test: $(BM_OBJECTS)
 	$(CC) $(BM_OBJECTS) -o $@
+
+string_test: $(STRING_OBJECTS)
+	$(CC) $(STRING_OBJECTS) -o $@
 
 ll_clean:
 	-rm -f $(OBJECTS)
