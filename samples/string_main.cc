@@ -8,6 +8,9 @@ stest1(void) {
     cout << "Original String: " << str << endl;
     s.reverse(str);
     cout << "Reversed String: " << str << endl;
+    s.reverse(str);
+    cout << "Print duplicates of the string--\""<< str << "\": ";
+    s.print_dups_of_str(str);
 }
 
 int main() {
