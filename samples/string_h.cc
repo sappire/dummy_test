@@ -16,9 +16,7 @@ String::reverse(string &S) {
 void
 String::check_and_insert(char c, string &res) {
     size_t found = res.find(c);
-//    cout << "\t c: " << c << "-R: " << res << "-F: " << found;
     if(found == string::npos) {
-//        cout << "Did not find entry";
         res.push_back(c);
     }
 }
@@ -27,10 +25,8 @@ void
 String::print_dups_of_str(string &S) {
     string res;
     for (int i=0; i< S.size(); i++) {
-//        cout << "-i: "<< i;
         for(int j=i+1; j<S.size(); j++) {
             if (S[i] == S[j]) {
-//                cout << "-j: " << j;                
                 check_and_insert(S[i],res);
                 break;
             }
