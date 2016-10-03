@@ -1,4 +1,6 @@
 #include "string_h.h"
+#include <sstream>
+#include <vector>
 
 void
 String::reverse(string &S) {
@@ -33,4 +35,26 @@ String::print_dups_of_str(string &S) {
         }
     }
     cout << res << endl;
+}
+
+void
+String::reverse_words(string &s) {
+    stringstream ss;
+    ss.str(s);
+    string item;
+    vector<string> res;
+    string delim;
+    delim = " ";
+    while (getline(ss, item, ' ')) {
+        res.insert(res.begin(), item);
+        res.insert(res.begin(), delim);
+        item.clear();
+    }
+    if (res.size() > 0) {
+        res.erase(res.begin());
+    }
+    for (int i =0 ; i < res.size(); i++) {
+        cout << res[i];
+    }
+    cout << endl;
 }

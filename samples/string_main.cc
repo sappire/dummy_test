@@ -13,7 +13,16 @@ stest1(void) {
     s.print_dups_of_str(str);
 }
 
+void
+stest2(void) {
+    cout << "Started string test: " << __func__ << endl;
+    String s;
+    std::string str("Reverse the String words");
+    s.reverse_words(str);
+}
+
 int main() {
     stest1();
+    stest2();
     return 1;
 }
