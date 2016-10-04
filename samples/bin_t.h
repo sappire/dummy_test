@@ -26,8 +26,10 @@ public:
     void duplicate_bt(void);
     bool is_balanced_bt(void); // depth diff between children should be atmost 1
     bool same_tree(btnode_t *a, btnode_t *b);
+    int longest_consecutive_numbers_in_path(tnode_t *node);
     btnode_t *root1_;
     btnode_t *root2_;
+    tnode_t *troot1_;
 private:
     void __create_node(btnode_t **node, int value);
     int __height(const btnode_t *const node);
@@ -37,4 +39,6 @@ private:
                    int &index, int curr_sum);
     void __mirror(btnode_t *node);
     void __duplicate_bt(btnode_t *node);
+    void __longest_consecutive_numbers_in_path(tnode_t *node, int &max_length, 
+                                               int curr_length);
 };

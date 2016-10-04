@@ -313,6 +313,37 @@ BT::same_tree(btnode_t *a, btnode_t *b) {
             (same_tree(a->right , b->right)));
 }
 
+void 
+BT::__longest_consecutive_numbers_in_path(tnode_t *node, int &max_length, int curr_length) {
+    if (node == NULL) return;
+    for(int i=0; i < NUM_OF_CHILDREN; i++) {
+        int curr_iteration_length = curr_length;
+        if (node->children[i] != NULL) {
+            if (node->children[i]->value == (node->value + 1)) {
+                curr_iteration_length++;
+                if(curr_iteration_length > max_length) {
+                    max_length = curr_iteration_length;
+                }
+            } else {
+                curr_iteration_length = 1;
+            }
+            __longest_consecutive_numbers_in_path(node->children[i], max_length, curr_iteration_length);
+        }
+    }
+}
+
+int
+BT::longest_consecutive_numbers_in_path(tnode_t *node) {
+    int max_length = 0;
+    int curr_length = 0;
+    if (node != NULL) {
+        max_length = 1;
+        curr_length = 1;
+    }
+    __longest_consecutive_numbers_in_path(node, max_length, curr_length);
+    return max_length;
+}
+
 void
 BT::cleanup_bt(btnode_t **node) {
     if (*node == NULL) return;
