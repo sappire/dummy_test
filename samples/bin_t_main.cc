@@ -28,7 +28,9 @@ void bint_test1() {
     bt.print_inorder(bt.root2_);
     cout << "\nTREES 1 & 2 are same ?" << status((enabled_t)bt.same_tree(bt.root1_, bt.root2_));
     pair<int,int> res = bt.return_non_matching_leaf_nodes(bt.root1_, bt.root2_);
-    cout << "\nNon Matching leaves of two trees:" << res.first << "," << res.second;
+    cout << "\nNON MATCHING LEAVES OF TWO TREES:" << res.first << "," << res.second;
+    cout << "\nCOLUMN WISE PRINTING OF TREE 1: ";
+    bt.print_columnwise(bt.root1_);
 
     /* Modifying Trees */
     bt.mirror_non_recursive();

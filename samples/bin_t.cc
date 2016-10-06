@@ -41,6 +41,7 @@ BT::create_tree1(void) {
     insert(&root1_, 30);
     insert(&root1_, 7);
     insert(&root1_, 3);
+    insert(&root1_, 25);
 }
 
 void
@@ -388,6 +389,39 @@ BT::return_non_matching_leaf_nodes(btnode_t *t1, btnode_t *t2) {
     if ((leaf1 == NULL) && (leaf2 != NULL)) return make_pair(0,leaf2->value);
 
     return make_pair(0,0);
+}
+
+void 
+BT::__insert_columnwise(btnode_t *node, map<int,vector<int>*> &m, int key) {
+    map<int,vector<int>*>::iterator it;
+    if ((it = m.find(key)) == m.end()) {
+        m.insert(pair<int, vector<int>*>(key, new vector<int>()));
+//        map.emplace(key, new vector<int>());
+    }
+    m[key]->push_back(node->value);
+}
+
+void
+BT::__populate_columnwise(btnode_t *root, map<int,vector<int>*> &m, int key) {
+    if (root == NULL) return;
+    __insert_columnwise(root, m, key);
+    __populate_columnwise(root->left, m, key-1);
+    __populate_columnwise(root->right, m, key+1);
+}
+
+void
+BT::print_columnwise(btnode_t *root) {
+    map<int,vector<int>*> m;
+    int key = 0;
+    __populate_columnwise(root, m, key);
+    map<int,vector<int>*>::iterator it;
+    for (it = m.begin(); it != m.end(); it++) {
+        for(int i=0; i < it->second->size(); i++) {
+            cout << (*it->second)[i];
+            if (i+1 < it->second->size()) cout << ",";
+        }
+        cout << "--";
+    }
 }
 
 void
