@@ -2,7 +2,7 @@ CC = g++
 CCFLAGS = -std=c++0x -g -Wall 
 LDFLAGS = -pthread
 HEADERS = data_structures.h ll.h bm.h
-SOURCES = ll.cc bm.cc main.cc
+SOURCES = ll.cc main.cc
 OBJECTS = $(SOURCES:.cc=.o)
 THREAD_HEADERS = thread_t.h
 THREAD_SOURCES = thread_t.cc thread_main.cc
@@ -13,6 +13,15 @@ BT_OBJECTS = $(BT_SOURCES:.cc=.o)
 GRAPH_HEADERS = data_structures.h graph.h
 GRAPH_SOURCES = graph.cc graph_main.cc
 GRAPH_OBJECTS = $(GRAPH_SOURCES:.cc=.o)
+SORT_HEADERS = data_structures.h sort.h
+SORT_SOURCES = sort.cc sort_main.cc
+SORT_OBJECTS = $(SORT_SOURCES:.cc=.o)
+BM_HEADERS = data_structures.h bm.h
+BM_SOURCES = bm.cc bm_main.cc
+BM_OBJECTS = $(BM_SOURCES:.cc=.o)
+STRING_HEADERS = string_h.h
+STRING_SOURCES = string_h.cc string_main.cc
+STRING_OBJECTS = $(STRING_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -27,6 +36,15 @@ bin_t%.o: bin_t%.cc $(BT_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
 graph%.o: graph%.cc $(GRAPH_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+sort%.o: sort%.cc $(SORT_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+bm%.o: bm%.cc $(BM_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+string%.o: string%.cc $(STRING_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
@@ -46,6 +64,15 @@ bin_t_test: $(BT_OBJECTS)
 graph_test: $(GRAPH_OBJECTS)
 	$(CC) $(GRAPH_OBJECTS) -o $@
 
+sort_test: $(SORT_OBJECTS)
+	$(CC) $(SORT_OBJECTS) -o $@
+
+bm_test: $(BM_OBJECTS)
+	$(CC) $(BM_OBJECTS) -o $@
+
+string_test: $(STRING_OBJECTS)
+	$(CC) $(STRING_OBJECTS) -o $@
+
 ll_clean:
 	-rm -f $(OBJECTS)
 	-rm -f ll 
@@ -55,6 +82,4 @@ clean:
 	-rm -f ll 
 	-rm -f bm 
 	-rm -f test 
-	-rm -f thread_test 
-	-rm -f bin_t_test 
-	-rm -f graph_test 
+	-rm -f *_test 

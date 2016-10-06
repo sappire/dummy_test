@@ -1,0 +1,21 @@
+[core]
+        whitespace = trailing-space,space-before-tab
+[apply]
+        whitespace = fix
+[user]
+        name = Sashank Reddy Appireddy
+        email = sshnk.82@gmail.com
+[commit]
+    template = ~/Documents/Github/gitmessage.txt
+[core]
+        editor = vim
+[alias]
+        co = checkout
+        br = branch
+        ci = commit
+        st = status
+        cp = cherry-pick
+        last = log -1 HEAD
+        hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[push]
+	default = current

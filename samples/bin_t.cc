@@ -1,14 +1,15 @@
 #include "bin_t.h"
 #include <stack>
-using namespace std;
 
 BT::BT()
-    :root_(NULL) {
+    :root1_(NULL),
+     root2_(NULL) {
 // Empty as of now
 }
 
 BT::~BT() {
-    root_ = NULL;
+    root1_ = NULL;
+    root2_ = NULL;
 }
 
 void
@@ -34,6 +35,36 @@ BT::insert(btnode_t **node, int value) {
 }
 
 void
+BT::create_tree1(void) {
+    insert(&root1_, 20);
+    insert(&root1_, 10);
+    insert(&root1_, 30);
+    insert(&root1_, 7);
+    insert(&root1_, 3);
+    insert(&root1_, 25);
+}
+
+void
+BT::create_tree2(void) {
+    insert(&root2_, 20);
+    insert(&root2_, 10);
+    insert(&root2_, 30);
+    insert(&root2_, 40);
+    insert(&root2_, 3);
+}
+
+int
+BT::__size(const btnode_t * const node) {
+    if(node == NULL) return 0;
+    return __size(node->left) + __size(node->right) + 1;
+}
+
+int 
+BT::size(void) {
+    return __size(root1_);
+}
+
+void
 BT::print_inorder(const btnode_t *node) {
     if (node == NULL) return;
 
@@ -47,9 +78,9 @@ BT::print_inorder_non_recursive(void) {
 /* Navigate through all the left nodes and push them in to the stack. Once curr node is 
  * NULL, then pop the item, print it and then make the right child of it as the current node.
  */
-    if (root_ == NULL) return;
+    if (root1_ == NULL) return;
     stack<btnode_t *> s;
-    btnode_t *curr = root_;
+    btnode_t *curr = root1_;
     while ((curr != NULL) || (!s.empty())) {
         
         if (curr == NULL) {
@@ -75,12 +106,12 @@ BT::print_preorder(const btnode_t *node) {
 void
 BT::print_preorder_non_recursive(void) {
 /* Print the current node and keep navigating through all the left nodes and push them in 
- * to the stack. Once curr node is NULL, then pop the item, print it and then make the 
+ * to the stack. Once curr node is NULL, then pop the item and then make the 
  * right child of it as the current node.
  */
-    if (root_ == NULL) return;
+    if (root1_ == NULL) return;
     stack<btnode_t *> s;
-    btnode_t *curr = root_;
+    btnode_t *curr = root1_;
     while ((curr != NULL) || (!s.empty())) {
         if (curr == NULL) {
             curr = s.top();
@@ -113,9 +144,9 @@ BT::print_postorder_non_recursive(void) {
  *        child and make current as right child. 
  *     b. If No, then print the current element and make curr = NULL;
  */
-    if (root_ == NULL) return;
+    if (root1_ == NULL) return;
     stack<btnode_t *> s;
-    btnode_t *curr = root_;
+    btnode_t *curr = root1_;
     btnode_t *tmp = NULL;
     while ((curr != NULL) || (!s.empty())) {
         if (curr != NULL) {
@@ -144,7 +175,7 @@ BT::print_postorder_non_recursive(void) {
 }
 
 int
-BT::__height(const btnode_t *node) {
+BT::__height(const btnode_t *const node) {
     if (node == NULL) return -1;
 
     return max(__height(node->left), __height(node->right)) + 1;
@@ -152,7 +183,7 @@ BT::__height(const btnode_t *node) {
 
 int 
 BT::height(void) {
-    return __height(root_);
+    return __height(root1_);
 }
 
 bool
@@ -168,7 +199,229 @@ BT::__is_balanced_bt(const btnode_t *node) {
 
 bool
 BT::is_balanced_bt(void) {
-    return __is_balanced_bt(root_);
+    return __is_balanced_bt(root1_);
+}
+
+void
+BT::__pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int> *> &pathmap, 
+              int &index, int curr_sum) {
+    if (node == NULL) return;
+    if (pathsum.size() < (index + 1)) {
+        pathsum.push_back((curr_sum + node->value));
+        pathmap.insert(pair<int,vector<int> *>(index, new vector<int>()));
+    } else {
+        pathsum[index] += node->value;
+    }
+    curr_sum = pathsum[index];
+    pathmap[index]->push_back(node->value);
+    __pathsum(node->left, pathsum, pathmap, index, curr_sum);
+    __pathsum(node->right, pathsum, pathmap, ++index, curr_sum);
+}
+
+bool
+BT::has_pathsum(int sum) {
+    vector<int> pathsum;
+    unordered_map<int,vector<int> *> pathmap;
+    int index = 0;
+    int curr_sum = 0;
+    __pathsum(root1_, pathsum, pathmap, index, curr_sum);
+    for (int i=0; i < pathsum.size(); i++) {
+        if (pathsum[i] == sum) {
+            vector<int> &ref = (*pathmap[i]);
+            cout << "{";
+            for (int j=0; j < ref.size(); j++) {
+                cout << ref[j] << " ";
+            }
+            cout << "}, ";
+            return true;
+        }
+    }
+
+    if (pathmap.size() > 0) {
+        unordered_map<int, vector<int> *>::iterator it;
+        for (it = pathmap.begin(); it != pathmap.end(); ++it) {
+            delete it->second;
+        }
+    }
+    return false;
+}
+
+void
+BT::__mirror(btnode_t *node) {
+    if (node == NULL) return;
+    btnode_t *tmp = node->left;
+    node->left = node->right;
+    node->right = tmp;
+    __mirror(node->left);
+    __mirror(node->right);
+}
+
+void
+BT::mirror(void) {
+    __mirror(root1_);
+}
+
+void
+BT::mirror_non_recursive(void) {
+    btnode_t *curr = root1_;
+    btnode_t *tmp = NULL;
+    stack<btnode_t *> s;
+    while((curr != NULL) || (!s.empty())) {
+        if (curr != NULL) {
+            tmp = curr->left;
+            curr->left = curr->right;
+            curr->right = tmp;
+            if (curr->right != NULL) {
+                s.push(curr->right);
+            }
+            curr = curr->left;
+            continue;
+        }
+        if (!s.empty()) {
+            curr = s.top();
+            s.pop();
+        }
+    }
+}
+
+void
+BT::__duplicate_bt(btnode_t *node) {
+    if (node == NULL) return;
+    btnode_t *dup = NULL;
+    __create_node(&dup, node->value);
+    dup->left = node->left;
+    node->left = dup;
+    __duplicate_bt(dup->left);
+    __duplicate_bt(node->right);
+}
+
+void
+BT::duplicate_bt(void) {
+    /* Need to make a duplicate of each node. Place the new node as the 
+     * left child of current node. The resulting should also be BT. */
+    return __duplicate_bt(root1_);
+}
+
+bool
+BT::same_tree(btnode_t *a, btnode_t *b) {
+    if ((a == NULL) && (b == NULL)) {
+        return true;
+    } else if ((a == NULL) || (b == NULL)) {
+        return false;
+    }
+    return ((a->value == b->value) &&
+            (same_tree(a->left , b->left)) && 
+            (same_tree(a->right , b->right)));
+}
+
+void 
+BT::__longest_consecutive_numbers_in_path(tnode_t *node, int &max_length, int curr_length) {
+    if (node == NULL) return;
+    for(int i=0; i < NUM_OF_CHILDREN; i++) {
+        int curr_iteration_length = curr_length;
+        if (node->children[i] != NULL) {
+            if (node->children[i]->value == (node->value + 1)) {
+                curr_iteration_length++;
+                if(curr_iteration_length > max_length) {
+                    max_length = curr_iteration_length;
+                }
+            } else {
+                curr_iteration_length = 1;
+            }
+            __longest_consecutive_numbers_in_path(node->children[i], max_length, curr_iteration_length);
+        }
+    }
+}
+
+int
+BT::longest_consecutive_numbers_in_path(tnode_t *node) {
+    int max_length = 0;
+    int curr_length = 0;
+    if (node != NULL) {
+        max_length = 1;
+        curr_length = 1;
+    }
+    __longest_consecutive_numbers_in_path(node, max_length, curr_length);
+    return max_length;
+}
+
+btnode_t *
+BT::__leaf_of_tree(stack<btnode_t *> &s) {
+    btnode_t *curr = NULL;
+    while (!s.empty()) {
+        curr = s.top();
+        s.pop();
+        if ((curr->left == NULL) && (curr->right == NULL)) {
+            return curr;
+        } else if (curr->right != NULL) {
+            curr = curr->right;
+            while (curr != NULL) {
+                s.push(curr);
+                curr = curr->left;
+            }
+        }
+    }
+    return NULL; 
+}
+
+std::pair<int,int> 
+BT::return_non_matching_leaf_nodes(btnode_t *t1, btnode_t *t2) {
+    stack<btnode_t *> s1;
+    stack<btnode_t *> s2;
+    btnode_t *curr1 = t1;
+    btnode_t *curr2 = t2;
+    while (curr1 != NULL) {
+        s1.push(curr1);
+        curr1 = curr1->left;
+    }
+    while (curr2 != NULL) {
+        s2.push(curr2);
+        curr2 = curr2->left;
+    }
+    btnode_t *leaf1 = __leaf_of_tree(s1);
+    btnode_t *leaf2 = __leaf_of_tree(s2);
+    while((leaf1 != NULL) && (leaf2 != NULL)) {
+        if(leaf1->value != leaf2->value) return make_pair(leaf1->value,leaf2->value);
+        leaf1 = __leaf_of_tree(s1);
+        leaf2 = __leaf_of_tree(s2);
+    }
+    if ((leaf1 != NULL) && (leaf2 == NULL)) return make_pair(leaf1->value,0);
+    if ((leaf1 == NULL) && (leaf2 != NULL)) return make_pair(0,leaf2->value);
+
+    return make_pair(0,0);
+}
+
+void 
+BT::__insert_columnwise(btnode_t *node, map<int,vector<int>*> &m, int key) {
+    map<int,vector<int>*>::iterator it;
+    if ((it = m.find(key)) == m.end()) {
+        m.insert(pair<int, vector<int>*>(key, new vector<int>()));
+//        map.emplace(key, new vector<int>());
+    }
+    m[key]->push_back(node->value);
+}
+
+void
+BT::__populate_columnwise(btnode_t *root, map<int,vector<int>*> &m, int key) {
+    if (root == NULL) return;
+    __insert_columnwise(root, m, key);
+    __populate_columnwise(root->left, m, key-1);
+    __populate_columnwise(root->right, m, key+1);
+}
+
+void
+BT::print_columnwise(btnode_t *root) {
+    map<int,vector<int>*> m;
+    int key = 0;
+    __populate_columnwise(root, m, key);
+    map<int,vector<int>*>::iterator it;
+    for (it = m.begin(); it != m.end(); it++) {
+        for(int i=0; i < it->second->size(); i++) {
+            cout << (*it->second)[i];
+            if (i+1 < it->second->size()) cout << ",";
+        }
+        cout << "--";
+    }
 }
 
 void
