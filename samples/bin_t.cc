@@ -105,7 +105,7 @@ BT::print_preorder(const btnode_t *node) {
 void
 BT::print_preorder_non_recursive(void) {
 /* Print the current node and keep navigating through all the left nodes and push them in 
- * to the stack. Once curr node is NULL, then pop the item, print it and then make the 
+ * to the stack. Once curr node is NULL, then pop the item and then make the 
  * right child of it as the current node.
  */
     if (root1_ == NULL) return;
@@ -342,6 +342,52 @@ BT::longest_consecutive_numbers_in_path(tnode_t *node) {
     }
     __longest_consecutive_numbers_in_path(node, max_length, curr_length);
     return max_length;
+}
+
+btnode_t *
+BT::__leaf_of_tree(stack<btnode_t *> &s) {
+    btnode_t *curr = NULL;
+    while (!s.empty()) {
+        curr = s.top();
+        s.pop();
+        if ((curr->left == NULL) && (curr->right == NULL)) {
+            return curr;
+        } else if (curr->right != NULL) {
+            curr = curr->right;
+            while (curr != NULL) {
+                s.push(curr);
+                curr = curr->left;
+            }
+        }
+    }
+    return NULL; 
+}
+
+std::pair<int,int> 
+BT::return_non_matching_leaf_nodes(btnode_t *t1, btnode_t *t2) {
+    stack<btnode_t *> s1;
+    stack<btnode_t *> s2;
+    btnode_t *curr1 = t1;
+    btnode_t *curr2 = t2;
+    while (curr1 != NULL) {
+        s1.push(curr1);
+        curr1 = curr1->left;
+    }
+    while (curr2 != NULL) {
+        s2.push(curr2);
+        curr2 = curr2->left;
+    }
+    btnode_t *leaf1 = __leaf_of_tree(s1);
+    btnode_t *leaf2 = __leaf_of_tree(s2);
+    while((leaf1 != NULL) && (leaf2 != NULL)) {
+        if(leaf1->value != leaf2->value) return make_pair(leaf1->value,leaf2->value);
+        leaf1 = __leaf_of_tree(s1);
+        leaf2 = __leaf_of_tree(s2);
+    }
+    if ((leaf1 != NULL) && (leaf2 == NULL)) return make_pair(leaf1->value,0);
+    if ((leaf1 == NULL) && (leaf2 != NULL)) return make_pair(0,leaf2->value);
+
+    return make_pair(0,0);
 }
 
 void
