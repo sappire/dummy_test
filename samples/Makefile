@@ -22,6 +22,9 @@ BM_OBJECTS = $(BM_SOURCES:.cc=.o)
 STRING_HEADERS = string_h.h
 STRING_SOURCES = string_h.cc string_main.cc
 STRING_OBJECTS = $(STRING_SOURCES:.cc=.o)
+DP_HEADERS = dp.h
+DP_SOURCES = dp.cc dp_main.cc
+DP_OBJECTS = $(DP_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -45,6 +48,9 @@ bm%.o: bm%.cc $(BM_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
 string%.o: string%.cc $(STRING_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+dp%.o: dp%.cc $(DP_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
