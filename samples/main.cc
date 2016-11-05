@@ -102,6 +102,18 @@ void test6(void)
     cout << "size of cache aligned structure is "<< sizeof(sample3_t) << endl;
 }
 
+void test7(void)
+{
+   /* Delete target value */
+   cout << "Started Test: " << __func__ << endl;
+   ll ll1;
+   node_t *start = ll1.create_ll_with_duplicates();
+   ll1.print_ll(start);
+   ll1.delete_target_nodes_with_value(&start, 10);
+   ll1.print_ll(start);
+   ll1.delete_ll(&start);
+}
+
 int main()
 {
    test1();
@@ -110,5 +122,6 @@ int main()
    test4();
    test5();
    test6();
+   test7();
    return 1;
 } 

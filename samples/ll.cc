@@ -89,6 +89,30 @@ ll::delete_duplicates_ll(node_t **head)
     }
 }
 
+void
+ll::delete_target_nodes_with_value(node_t **head, int target)
+{
+    if (*head == NULL) return;
+    node_t *curr = *head;
+    node_t *prev = NULL;
+    while(curr != NULL) {
+        if(curr->value == target) {
+            if (curr == *head) {
+                *head = (*head)->next;
+                free(curr);
+                curr = *head;
+            } else {
+                prev->next = curr->next;
+                free(curr);
+                curr = prev->next;
+            }
+        } else {
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+}
+
 void 
 ll::delete_ll(node_t **head)
 {

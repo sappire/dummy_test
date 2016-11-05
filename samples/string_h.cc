@@ -42,7 +42,13 @@ String::reverse_words(string &s) {
     stringstream ss;
     ss.str(s);
     string item;
-    vector<string> res;
+    stringstream res;
+    while(getline(ss,item,' ')) {
+        res << item << ' ';
+    }
+//    if (res.str().size() > 0) res.str().erase(res.str().size()-1);
+    cout << res.str() << endl;
+/*    vector<string> res;
     string delim;
     delim = " ";
     while (getline(ss, item, ' ')) {
@@ -57,4 +63,5 @@ String::reverse_words(string &s) {
         cout << res[i];
     }
     cout << endl;
+*/
 }
