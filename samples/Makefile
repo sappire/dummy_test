@@ -28,6 +28,9 @@ DP_OBJECTS = $(DP_SOURCES:.cc=.o)
 STACK_HEADER = stack.h
 STACK_SOURCES = stack_main.cc
 STACK_OBJECTS = $(STACK_SOURCES:.cc=.o)
+FILE_HEADER = file_io.h
+FILE_SOURCES = file_io.cc file_main.cc
+FILE_OBJECTS = $(FILE_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -58,6 +61,9 @@ dp%.o: dp%.cc $(DP_HEADERS)
 
 stack%.o: stack%.cc $(STACK_HEADER)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+file%.o: file_io%.cc $(FILE_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
@@ -87,6 +93,9 @@ string_test: $(STRING_OBJECTS)
 
 stack_test: $(STACK_OBJECTS)
 	$(CC) $(STACK_OBJECTS) -o $@
+
+file_test: $(FILE_OBJECTS)
+	$(CC) $(FILE_OBJECTS) -o $@
 
 ll_clean:
 	-rm -f $(OBJECTS)
