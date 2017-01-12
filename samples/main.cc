@@ -66,10 +66,10 @@ void test5(void)
 {
     /* Size of a structure */
     cout << "Started Test: " << __func__ << endl;
-    btnode_t a,b;
+    btnode_t a[2];
     uint8_t *a_,*b_;
-    a_ = (uint8_t*)&a;
-    b_ = (uint8_t*)&b;
+    a_ = (uint8_t*)&a[0];
+    b_ = (uint8_t*)&a[1];
     cout << "Size of btnode_t is " << (b_ - a_) << endl;
 
     typedef struct sample1 {

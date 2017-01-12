@@ -31,6 +31,9 @@ STACK_OBJECTS = $(STACK_SOURCES:.cc=.o)
 FILE_HEADER = file_io.h
 FILE_SOURCES = file_io.cc file_main.cc
 FILE_OBJECTS = $(FILE_SOURCES:.cc=.o)
+ARRAY_HEADER = arr.h
+ARRAY_SOURCES = arr.cc arr_main.cc
+ARRAY_OBJECTS = $(ARRAY_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -64,6 +67,9 @@ stack%.o: stack%.cc $(STACK_HEADER)
 
 file%.o: file_io%.cc $(FILE_HEADER)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+arr%.o: arr%.cc $(ARRAY_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
@@ -96,6 +102,9 @@ stack_test: $(STACK_OBJECTS)
 
 file_test: $(FILE_OBJECTS)
 	$(CC) $(FILE_OBJECTS) -o $@
+
+arr_test: $(ARRAY_OBJECTS)
+	$(CC) $(ARRAY_OBJECTS) -o $@
 
 ll_clean:
 	-rm -f $(OBJECTS)
