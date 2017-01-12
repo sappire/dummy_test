@@ -24,4 +24,5 @@ public:
 class Arr {
 public:
     vector<int> merge_k_sorted_arrays(vector<vector<int>> &A);
+    vector<vector<int>> anti_diagonal_sqr_matrix(vector<vector<int>> &A);
 };
