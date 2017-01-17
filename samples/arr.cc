@@ -81,3 +81,137 @@ Arr::anti_diagonal_sqr_matrix(vector<vector<int>> &A) {
 
     return res;
 }
+
+int
+Arr::_find_median(int A[], int n) {
+    if (n % 2 == 0) {
+        return (A[n/2-1] + A[n/2])/2;
+    }
+    return A[n/2];
+}
+
+int 
+Arr::median_two_sorted_arrays_same_size(int A[] , int B[], int n) {
+    if (n == 0) { 
+        return 0;
+    } else if (n == 1) {
+        return (A[0]+B[0]) / 2;
+    } else if (n == 2) {
+        return ((max(A[0],B[0]) + min (A[1],B[1]))/2);
+    }
+
+    int a_med = _find_median(A,n);
+    int b_med = _find_median(B,n); 
+
+    int res = 0;
+    if (a_med == b_med) {
+        return a_med;
+    } else if (a_med > b_med) {
+            res = median_two_sorted_arrays_same_size(A, B+n/2, n - n/2);
+    } else {
+            res = median_two_sorted_arrays_same_size(A+n/2, B, n - n/2);
+    }
+    return res;
+}
+
+int 
+Arr::_next_element_clockwise(const vector<vector<int>> &A, int max_dist,
+                             int &i, int &j, int &dir) {
+
+    if (dir == 0) {
+        if(j + max_dist > A.size() - 1) {
+            dir = 1;
+            i = j;
+            j = max_dist;
+        } else {
+            j += max_dist;
+        }
+    } else if (dir == 1) {
+        if(i + max_dist > A.size() - 1) {
+            dir = 2;
+            j -= i;
+            i = max_dist;
+        } else {
+            i += max_dist;
+        }
+    } else if (dir == 2) {
+        if(j - max_dist < 0) {
+            dir = 3;
+            i = j;
+            j = A.size() - 1 - max_dist;
+        } else {
+            j -= max_dist;
+        }
+    } else if (dir == 3) {
+        if(i - max_dist < 0) {
+            dir = 0;
+            j = max_dist - i;
+            i = A.size() - 1 - max_dist;
+        } else {
+            i -= max_dist;
+        }
+    }
+    return A[i][j];
+}
+
+void
+Arr::rotate_matrix_clockwise(vector<vector<int>> &A) {
+    int dir = 0;
+    int start = 0;
+    int max = A.size() - 1;
+    int i = 0, j = 0; 
+    int curr = 0;
+    int next = 0;
+    bool cycle = false;
+    int start_outer = 0;
+    while(start_outer <= (A.size()/2)) {
+        start = start_outer;
+        max -= start_outer;
+        i = start;
+        while(start < max) {
+            j = start;
+            next = A[i][j]; 
+            while(!cycle) {
+                if (dir == 0) {
+                    curr = next;
+                    next = _next_element_clockwise(A, max, i, j, dir);
+                    A[i][j] = curr;
+                    dir = 1;
+                } else if (dir == 1) {
+                    curr = next;
+                    next = _next_element_clockwise(A, max, i, j, dir);
+                    A[i][j] = curr;
+                    dir = 2;
+                } else if (dir == 2) {
+                    curr = next;
+                    next = _next_element_clockwise(A, max, i, j, dir);
+                    A[i][j] = curr;
+                    dir = 3;
+                } else if (dir == 3) {
+                    curr = next;
+                    next = _next_element_clockwise(A, max, i, j, dir);
+                    A[i][j] = curr;
+                    dir = 0;
+                    cycle = true;
+                }
+            }
+            start++;
+            cycle = false;
+        }
+        start_outer++;
+    }
+}
+
+int
+Arr::find_sing_occur_with_others_rep_3_times(const vector<int> &A) {
+    int ones = 0, twos = 0;
+    int threes = 0;
+    for (int i=0; i < A.size(); i++) {
+        twos |= (ones & A[i]);
+        ones ^= A[i];
+        threes = (ones & twos);
+        ones &= (~threes);
+        twos &= (~threes);
+    } 
+    return ones;
+}

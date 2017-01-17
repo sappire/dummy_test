@@ -25,4 +25,11 @@ class Arr {
 public:
     vector<int> merge_k_sorted_arrays(vector<vector<int>> &A);
     vector<vector<int>> anti_diagonal_sqr_matrix(vector<vector<int>> &A);
+    int median_two_sorted_arrays_same_size(int A[] , int B[], int n);
+    void rotate_matrix_clockwise(vector<vector<int>> &A);
+    int find_sing_occur_with_others_rep_3_times(const vector<int> &A);
+private:
+    int _find_median(int A[], int n);
+    int _next_element_clockwise(const vector<vector<int>> &A, int max_dist,
+                                int &i, int &j, int &dir);
 };

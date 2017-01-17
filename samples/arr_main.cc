@@ -26,8 +26,28 @@ void test2() {
     arr_obj.anti_diagonal_sqr_matrix(A);
 }
 
+void test3() {
+    cout << "-------------Executing Test: " << __func__ << endl;
+    Arr arr_obj;
+    int A[] = {3, 5, 7, 23};
+    int B[] = {1, 6, 10, 11};
+    cout << " Median of two same sized sorted arrays is : "
+         << arr_obj.median_two_sorted_arrays_same_size(A, B, 4) << endl;
+}
+
+void test4() {
+    cout << "-------------Executing Test: " << __func__ << endl;
+    Arr arr_obj;
+    int Ar[] = {1, 6, 10, 11, 11, 6, 6, 10, 10, 11};
+    vector<int> A(Ar, Ar+(sizeof(Ar)/sizeof(Ar[0])));
+    cout << " single occurrence of the array element is : "
+         << arr_obj.find_sing_occur_with_others_rep_3_times(A) << endl;
+}
+
 int main() {
     test1();
     test2();
+    test3();
+    test4();
     return 0;
 }
