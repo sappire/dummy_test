@@ -29,10 +29,10 @@ void test2() {
 void test3() {
     cout << "-------------Executing Test: " << __func__ << endl;
     Arr arr_obj;
-    int A[] = {3, 5, 7, 23};
-    int B[] = {1, 6, 10, 11};
+    int A[] = {1 ,3, 3, 4, 5, 7, 22, 23};
+    int B[] = {1, 2, 6, 10, 11, 17, 19, 20};
     cout << " Median of two same sized sorted arrays is : "
-         << arr_obj.median_two_sorted_arrays_same_size(A, B, 4) << endl;
+         << arr_obj.median_two_sorted_arrays_same_size(A, B, 8) << endl;
 }
 
 void test4() {

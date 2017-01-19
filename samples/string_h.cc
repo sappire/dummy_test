@@ -115,3 +115,71 @@ String::LPS(const string &S) {
     }
     return lps;
 }
+
+int
+String::_get_number(stack<char> &s) {
+    int i=0;
+    int num = 0;
+    int mul = 1;
+    char c;
+    while(!s.empty()) {
+        c = s.top();
+        if(c >= '0' && c <= '9') {
+            if (i == 0) {
+                num = c-'0';
+                i++;
+            } else {
+                mul *= 10;
+                num += mul * (c-'0');
+            }
+            s.pop();
+        } else {
+            break;
+        }
+    }
+    return num;
+}
+
+void
+String::_correct_string(stack<char> &s) {
+    string curr;
+    char c = '\0';
+    int mul_by = 0;
+    while(!s.empty()) {
+        c = s.top();
+        s.pop();
+        if(c != '[') {
+            curr = c + curr;
+        } else {
+            mul_by = _get_number(s);
+            string temp = curr;
+            while(mul_by > 1) {
+                curr = temp + curr;
+                mul_by--;
+            }
+            break; 
+        }
+    }
+    for(int i = 0; i < curr.size(); i++) s.push(curr[i]);
+}
+
+    //a3[b2[c]e2[d]]
+    //a3[bccedd
+string
+String::decode(const string &S) {
+    string res;
+    stack<char> s;
+    for(int m=0; m<S.size(); m++) {
+        if(S[m] == ']') {
+            _correct_string(s);
+        } else {
+            s.push(S[m]);
+        }
+    }
+
+    while(!s.empty()) {
+        res = s.top() + res;
+        s.pop();
+    }
+    return res;
+}

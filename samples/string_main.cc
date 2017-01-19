@@ -38,10 +38,19 @@ stest4(void) {
     cout << "Longest palindromic substring is "  << s.LPS(str) << endl;
 }
 
+void
+stest5(void) {
+    cout << "Started string test: " << __func__ << endl;
+    String s;
+    std::string str("a2[b10[c]]");
+    cout << "String decoded to " << s.decode(str) << endl;
+}
+
 int main() {
     stest1();
     stest2();
     stest3();
     stest4();
-    return 1;
+    stest5();
+    return 0;
 }
