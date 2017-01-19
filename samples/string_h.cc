@@ -183,3 +183,29 @@ String::decode(const string &S) {
     }
     return res;
 }
+
+string
+String::multiply_numbers(const string &S1, const string &S2) {
+    //sz1 = 89    sz2 = 33
+    int sz1 = S1.size();
+    int sz2 = S2.size();
+    int sz = sz1 + sz2;
+    vector<int> pos(sz, 0);
+    int sum = 0;
+    int m;
+    for(int i=sz1-1; i >= 0 ; i--) {
+        m = (sz-1)-(sz1-i-1);
+        for(int j=sz2-1; j>=0 ; j--) {
+            sum = (S1[i]-'0')*(S2[j]-'0') + pos[m];
+            pos[m] = sum%10;
+            pos[m-1] += sum/10;
+            m--;
+        }
+    }
+    string res;
+    for(int m=0; m < sz; m++) {
+        if(res.size() < 1 && pos[m] == 0) continue;
+        res += to_string(pos[m]);
+    }
+    return res;
+}

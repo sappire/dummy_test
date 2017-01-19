@@ -46,11 +46,21 @@ stest5(void) {
     cout << "String decoded to " << s.decode(str) << endl;
 }
 
+void
+stest6(void) {
+    cout << "Started string test: " << __func__ << endl;
+    String s;
+    std::string S1("33");
+    std::string S2("89");
+    cout << "Product of " << S1 << " and " << S2 << " is " << s.multiply_numbers(S1,S2) << endl;
+}
+
 int main() {
     stest1();
     stest2();
     stest3();
     stest4();
     stest5();
+    stest6();
     return 0;
 }
