@@ -12,6 +12,7 @@ public:
     string LPS(const string &S);
     string decode(const string &S);
     string multiply_numbers(const string &S1, const string &S2);
+    int unique_sub_strings(const string &S);
 private:
     void check_and_insert(char c, string &res);
     string _expand_around_center(const string &S, int i, int j);

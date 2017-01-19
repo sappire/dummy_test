@@ -1,7 +1,7 @@
 #include "string_h.h"
 #include <sstream>
 #include <vector>
-
+#include <unordered_set>
 void
 String::reverse(string &S) {
     if (S.size() < 2) return;
@@ -208,4 +208,30 @@ String::multiply_numbers(const string &S1, const string &S2) {
         res += to_string(pos[m]);
     }
     return res;
+}
+
+int
+String::unique_sub_strings(const string &S) {
+    unordered_set<char> m;
+    vector<int> arr;
+    m.emplace(S[0]);
+    for(int i=1; i < S.size(); i++) {
+        arr.push_back(S[i]-S[i-1]);
+        if (m.find(S[i]) == m.end()) {
+            m.emplace(S[i]);
+        }
+    }
+
+    int count = 0;
+    int consec_ones = 0;
+    for(int i=0; i < arr.size(); i++) {
+        if(arr[i] == 1 || arr[i] == -25) {
+            consec_ones++; 
+        } else {
+            count += (consec_ones*(consec_ones+1)/2);
+            consec_ones = 0;
+        }
+    }
+    if(consec_ones > 0) count += (consec_ones*(consec_ones+1)/2);
+    return count+m.size();
 }

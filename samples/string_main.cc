@@ -55,6 +55,15 @@ stest6(void) {
     cout << "Product of " << S1 << " and " << S2 << " is " << s.multiply_numbers(S1,S2) << endl;
 }
 
+void
+stest7(void) {
+    cout << "Started string test: " << __func__ << endl;
+    String s;
+    std::string S("zxyza");
+    cout << "Number of Unique substrings from qiven substring \"" << S << "\" are "
+         << s.unique_sub_strings(S) << endl;
+}
+
 int main() {
     stest1();
     stest2();
@@ -62,5 +71,6 @@ int main() {
     stest4();
     stest5();
     stest6();
+    stest7();
     return 0;
 }
