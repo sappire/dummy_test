@@ -235,3 +235,18 @@ String::unique_sub_strings(const string &S) {
     if(consec_ones > 0) count += (consec_ones*(consec_ones+1)/2);
     return count+m.size();
 }
+
+string
+String::min_substr_length_containing_all_chars_of_another_str(const string &S, const string &T) {
+    int m[128]={0};
+    for(int i=0 ; i<T.size(); i++) m[T[i]]++;
+    int count = T.size(), res = INT_MAX, end = 0, begin = 0, head=0;
+    while(end < S.size()) {
+        if(m[S[end++]]-- > 0) count--;
+        while(count == 0) {
+            res = min(res, end-(head=begin));
+            if(m[S[begin++]]++ == 0) count++;
+        }
+    }
+    return res >= INT_MAX ? "": S.substr(head, res);
+}
