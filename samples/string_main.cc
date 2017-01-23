@@ -60,7 +60,7 @@ stest7(void) {
     cout << "Started string test: " << __func__ << endl;
     String s;
     std::string S("zxyza");
-    cout << "Number of Unique substrings from qiven substring \"" << S << "\" are "
+    cout << "Number of Unique substrings from qiven string \"" << S << "\" are "
          << s.unique_sub_strings(S) << endl;
 }
 
@@ -75,6 +75,15 @@ stest8(void) {
          << s.min_substr_length_containing_all_chars_of_another_str(S,T) << "\"" << endl;
 }
 
+void
+stest9(void) {
+    cout << "Started string test: " << __func__ << endl;
+    String s;
+    std::string S("abbabc");
+    cout << "Max length substring of \"" << S << "\" with atleast k times characters repeated are \"" 
+         << s.max_substr_length_containing_chars_atleast_ktimes(S,2) << "\"" << endl;
+}
+
 int main() {
     stest1();
     stest2();
@@ -84,5 +93,6 @@ int main() {
     stest6();
     stest7();
     stest8();
+    stest9();
     return 0;
 }

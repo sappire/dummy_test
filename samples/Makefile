@@ -106,6 +106,9 @@ file_test: $(FILE_OBJECTS)
 arr_test: $(ARRAY_OBJECTS)
 	$(CC) $(ARRAY_OBJECTS) -o $@
 
+dp_test: $(DP_OBJECTS)
+	$(CC) $(DP_OBJECTS) -o $@
+
 ll_clean:
 	-rm -f $(OBJECTS)
 	-rm -f ll 

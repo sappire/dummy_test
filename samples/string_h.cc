@@ -2,6 +2,7 @@
 #include <sstream>
 #include <vector>
 #include <unordered_set>
+#include <unordered_map>
 void
 String::reverse(string &S) {
     if (S.size() < 2) return;
@@ -241,6 +242,8 @@ String::min_substr_length_containing_all_chars_of_another_str(const string &S, c
     int m[128]={0};
     for(int i=0 ; i<T.size(); i++) m[T[i]]++;
     int count = T.size(), res = INT_MAX, end = 0, begin = 0, head=0;
+    //helloworldwieaew
+    //ew
     while(end < S.size()) {
         if(m[S[end++]]-- > 0) count--;
         while(count == 0) {
@@ -250,3 +253,26 @@ String::min_substr_length_containing_all_chars_of_another_str(const string &S, c
     }
     return res >= INT_MAX ? "": S.substr(head, res);
 }
+
+int
+String::max_substr_length_containing_chars_atleast_ktimes(const string &S, int k) {
+    int i = 0;
+    unordered_map<char,int> m;
+    for(int i =0 ; i< S.size(); i++) {
+        m[S[i]]++;
+    }
+
+    for(int i =0 ; i< S.size(); i++) {
+        if (m[S[i]] < k) {
+            int left = max_substr_length_containing_chars_atleast_ktimes(S.substr(0,i), k);
+            int right = 0;
+            if ((i+1) < S.size()) {
+                right = max_substr_length_containing_chars_atleast_ktimes(S.substr(i+1), k);
+            }
+            return max(left,right);
+        }
+    }
+    return S.size();
+}
+
+//hello
