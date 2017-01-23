@@ -33,9 +33,10 @@ DP::min_num_palin_split(string s) {
     return split[s.size()-1];
 }
 
-//3,2,2,0,4
+//4,15,1,4,2,2,3,2,2,2,1,4
+//2,3,1,4,2,4,3,6,1,2,2,2,1,4
 bool
-DP::can_reach_final_idx(vector<int> &A) {
+DP::can_reach_final_idx(const vector<int> &A) {
     vector<bool> dp(A.size(), false);
     dp[0] = true;
     int max_left = A[0]-1;
@@ -46,3 +47,23 @@ DP::can_reach_final_idx(vector<int> &A) {
     }
     return true;
 }
+
+//3.2.1.0,4
+int 
+DP::min_idxs_to_reach_final_idx(const vector<int> &A) {
+    vector<int> dp(A.size(), -1);
+    dp[0] = 0;
+    int maxpos = A[0];
+    int currmaxpos = A[0];
+    int jumps = 1;
+    for(int i=1; i <= maxpos; i++) {
+        if (i == A.size()-1) return jumps;
+        currmaxpos = max(currmaxpos, i+A[i]);
+        if (i==maxpos) {
+            maxpos = currmaxpos;
+            jumps++;
+        }
+    }
+    return -1;
+}
+
