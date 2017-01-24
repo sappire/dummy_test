@@ -92,3 +92,35 @@ DP::max_sum_2n_grid(const vector<vector<int>> &A) {
     }
     return max_sum;
 }
+
+//sd
+//con
+/*
+1 + rep(d,on)--> 1 + (1 + rep(,n)) = 3
+                 1 + (1 + in(d,n)) = 2 + (1 + rep(,)) = 3   = 3
+                                     2 + (1 + in(d,)) = 4
+                                     2 + (1 + del(,n)) = 4
+                 1 + (1 + del(,on)) = 4
+1 + in(sd,on)---> 3
+1 + del(d,con)
+*/
+int
+DP::min_steps_to_transform_A_to_B(const string &A, const string &B) {
+    vector<vector<int>> dp(A.size()+1 , vector<int>(B.size()+1,0));
+    for(int i=0 ; i < dp.size(); i++) {
+        for(int j=0; j < dp[0].size(); j++) {
+            if (i == 0) dp[i][j] = j;
+            else if (j == 0) dp[i][j] = i;
+        }
+    }
+
+    for(int i=1 ; i < dp.size(); i++) {
+        for(int j=1; j < dp[0].size(); j++) {
+            if (A[i-1] == B[j-1])
+                dp[i][j] = dp[i-1][j-1];
+            else
+                dp[i][j] = 1 + min(dp[i-1][j-1], min(dp[i][j-1], dp[i-1][j]));
+        }
+    }
+    return dp[A.size()][B.size()];
+}

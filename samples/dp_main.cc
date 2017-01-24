@@ -2,7 +2,7 @@
 using namespace std;
 
 void dptest1(void) {
-    cout << "Started test " << __func__ << endl;
+    cout << "--------------Started test " << __func__ << endl;
     DP d;
     string S("hehbeb");
     cout << "Minimum number of splits for which each half is a palindrome of \"" << S << "\" is " 
@@ -10,7 +10,7 @@ void dptest1(void) {
 }     
 
 void dptest2(void) {
-    cout << "Started test " << __func__ << endl;
+    cout << "--------------Started test " << __func__ << endl;
     DP d;
     int arr[] = {3,2,1,0,4};
     vector<int> A(arr, arr+sizeof(arr)/sizeof(arr[0]));
@@ -22,7 +22,7 @@ void dptest2(void) {
 }     
 
 void dptest3(void) {
-    cout << "Started test " << __func__ << endl;
+    cout << "--------------Started test " << __func__ << endl;
     DP d;
     int arr[] = {3,2,2,0,4};
     vector<int> A(arr, arr+sizeof(arr)/sizeof(arr[0]));
@@ -34,7 +34,7 @@ void dptest3(void) {
 }
      
 void dptest4(void) {
-    cout << "Started test " << __func__ << endl;
+    cout << "--------------Started test " << __func__ << endl;
     DP d;
     int R1[] = {3,2,1,9};
     int R2[] = {6,3,0,9};
@@ -52,10 +52,20 @@ void dptest4(void) {
     cout << ">} without considering adjacent nodes of dist of 1 is " << d.max_sum_2n_grid(A) << endl;
 }
 
+void dptest5(void) {
+    cout << "--------------Started test " << __func__ << endl;
+    DP d;
+    string A("hello");
+    string B("helloworld");
+    cout << "Min operations to convert string \"" << A << "\" to \"" << B << "\" are "  
+         << d.min_steps_to_transform_A_to_B(A, B) << endl;
+}
+
 int main() {
     dptest1();
     dptest2();
     dptest3();
     dptest4();
+    dptest5();
     return 0;
 }
