@@ -67,3 +67,28 @@ DP::min_idxs_to_reach_final_idx(const vector<int> &A) {
     return -1;
 }
 
+//3 4 1 2
+//2 5 3 6
+//3 4 1 2
+//2 5 3 6
+
+int
+DP::max_sum_2n_grid(const vector<vector<int>> &A) {
+    int max_sum = INT_MIN;
+    int elem = 0;
+    int curr_i = 0;
+    int curr_j = 0;
+  
+    for(int a = 0; a < A.size() * A[0].size(); a++) {
+        curr_i = a / A[0].size();
+        curr_j = a % A[0].size();
+        elem = A[curr_i][curr_j];
+        for(int i=curr_i; i < A.size(); i++) {
+            for(int j=0; j < A[i].size(); j++) {
+                if ((abs(i-curr_i) < 2) && (abs(j-curr_j) < 2)) continue;
+                max_sum = max(max_sum,elem+A[i][j]);
+            }
+        }
+    }
+    return max_sum;
+}
