@@ -124,3 +124,21 @@ DP::min_steps_to_transform_A_to_B(const string &A, const string &B) {
     }
     return dp[A.size()][B.size()];
 }
+
+//0, 6, 7 ,8, 9, 5, 6, 7, 8 11
+int
+DP::LIS(vector<int> &A) {
+    vector<int> dp(A.size(), 0);
+    dp[0] = 1;
+    int res = 0;;
+    for(int i=1; i < A.size(); i++) {
+        dp[i] = 1;
+        for(int j = 0; j < i; j++) {
+            if (A[i] > A[j]) {
+                dp[i] = max(dp[i], dp[j] + 1);
+            }
+        }
+        res = max(res, dp[i]);
+    }
+    return res;
+}

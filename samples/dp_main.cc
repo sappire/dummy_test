@@ -61,11 +61,24 @@ void dptest5(void) {
          << d.min_steps_to_transform_A_to_B(A, B) << endl;
 }
 
+void dptest6(void) {
+    cout << "--------------Started test " << __func__ << endl;
+    DP d;
+    int R1[] = {0,6,7,8,9,5,6,7,8,11};
+    vector<int> A(R1, R1+sizeof(R1)/sizeof(R1[0]));
+    cout << "LIS of {";
+    for(int i=0; i<A.size(); i++) {
+        cout << R1[i] << ",";
+    }
+    cout << "} is " << d.LIS(A) << endl;
+}
+ 
 int main() {
     dptest1();
     dptest2();
     dptest3();
     dptest4();
     dptest5();
+    dptest6();
     return 0;
 }
