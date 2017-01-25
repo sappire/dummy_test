@@ -142,3 +142,42 @@ DP::LIS(vector<int> &A) {
     }
     return res;
 }
+
+//abab
+//ab*bab
+bool 
+DP::_regex_match_dot_star(const string &A, int A_idx, const string &P, int P_idx) {
+    int A_sz = A.size();
+    int P_sz = P.size();
+
+    if ((A_sz-A_idx) <=0 && (P_sz-P_idx) <=0) return true;
+    if ((P_sz-P_idx) <= 0) return (A_sz-A_idx <=0 );
+    if ((A_sz-A_idx) <=0 || (P_sz-P_idx) <=0) return false;
+
+    //next char is not *
+    if ((A_sz-A_idx) > 1 && (P_sz-P_idx) > 1) {
+        if(P[P_idx+1] != '*') {
+            if(P[P_idx] == A[A_idx] || (P[P_idx] == '.' && A_sz-A_idx != 0)) {
+                return _regex_match_dot_star(A,A_idx+1,P,P_idx+1);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    //next char is *
+    while((P_idx < P_sz && A_idx < P_sz) &&
+          (P[P_idx] == A[A_idx]) || (P[P_idx] == '.' && (A_sz-A_idx != 0))) {
+        if ((P_idx + 2) < P_sz) {
+            if(_regex_match_dot_star(A,A_idx,P,P_idx+2)) return true;
+        }
+        A_idx++;
+    }
+    
+    return _regex_match_dot_star(A,A_idx,P,P_idx+2);
+}
+
+bool
+DP::regex_match_dot_star(const string &A, const string &P) {
+    return _regex_match_dot_star(A,0,P,0);
+}

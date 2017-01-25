@@ -69,7 +69,7 @@ stest8(void) {
     cout << "Started string test: " << __func__ << endl;
     String s;
     std::string S("helloworld");
-    std::string T("ew");
+    std::string T("wr");
     cout << "Minimum length substring of the string \"" << S << "\" that contains " 
          << "all characters of another string \"" << T << "\" is \"" 
          << s.min_substr_length_containing_all_chars_of_another_str(S,T) << "\"" << endl;

@@ -72,6 +72,14 @@ void dptest6(void) {
     }
     cout << "} is " << d.LIS(A) << endl;
 }
+
+void dptest7(void) {
+    cout << "--------------Started test " << __func__ << endl;
+    DP d;
+    string A("ab");
+    string P("ab*b");
+    cout << "Regex match of \"" << A << "\" with \"" << P << "\" is " << d.regex_match_dot_star(A,P) << endl;
+}
  
 int main() {
     dptest1();
@@ -80,5 +88,6 @@ int main() {
     dptest4();
     dptest5();
     dptest6();
+    dptest7();
     return 0;
 }
