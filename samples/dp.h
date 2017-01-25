@@ -16,4 +16,5 @@ public:
     int LIS(vector<int> &A);
     bool RSS(const string &A);
     bool regex_match_dot_star(const string &A, const string &P);
+    int unique_BST(int A);
 };

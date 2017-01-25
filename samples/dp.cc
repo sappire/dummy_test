@@ -181,3 +181,29 @@ bool
 DP::regex_match_dot_star(const string &A, const string &P) {
     return _regex_match_dot_star(A,0,P,0);
 }
+
+/*1,2,3
+
+ (1)     (2)     (3)   (4)    (5)     (6)
+  1       1       2     2      3       3
+   2       3     1 3     3    2       1
+    3     2             1    1         2
+
+ Note answer is "5" as the (4) is not structurally unique as it is as same as (2)
+
+*/
+int
+DP::unique_BST(int A) {
+    if (A==1) return 1;
+    if (A==2) return 2;
+
+    vector<int> dp(A+1,0);
+    dp[0] = 1;
+    dp[1] = 1;
+    for (int i=2; i<=A; i++) {
+        for(int k=1; k <= i; k++) {
+            dp[i] += dp[k-1]*dp[i-k];
+        }
+    }
+    return dp[A];
+}

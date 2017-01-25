@@ -81,6 +81,13 @@ void dptest7(void) {
     cout << "Regex match of \"" << A << "\" with \"" << P << "\" is " << d.regex_match_dot_star(A,P) << endl;
 }
  
+void dptest8(void) {
+    cout << "--------------Started test " << __func__ << endl;
+    DP d;
+    int A = 3;
+    cout << "Structurally unique BST's with \"" <<  A << "\" elements is " << d.unique_BST(A) << endl;
+}
+ 
 int main() {
     dptest1();
     dptest2();
@@ -89,5 +96,6 @@ int main() {
     dptest5();
     dptest6();
     dptest7();
+    dptest8();
     return 0;
 }
