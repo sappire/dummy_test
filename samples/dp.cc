@@ -126,6 +126,7 @@ DP::min_steps_to_transform_A_to_B(const string &A, const string &B) {
 }
 
 //0, 6, 7 ,8, 9, 5, 6, 7, 8 11
+//Keep populating the DP with LIS including current index. update max.
 int
 DP::LIS(vector<int> &A) {
     vector<int> dp(A.size(), 0);

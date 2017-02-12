@@ -84,8 +84,16 @@ stest9(void) {
          << s.max_substr_length_containing_chars_atleast_ktimes(S,2) << "\"" << endl;
 }
 
+void
+stest10(void) {
+    cout << "Started string test: " << __func__ << endl;
+    String s;
+    std::string S("10.10.10.0/24");
+    s.print_all_ips_of_subnet(S);
+}
+
 int main() {
-    stest1();
+/*    stest1();
     stest2();
     stest3();
     stest4();
@@ -94,5 +102,6 @@ int main() {
     stest7();
     stest8();
     stest9();
+*/    stest10();
     return 0;
 }

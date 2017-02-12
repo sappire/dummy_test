@@ -256,7 +256,6 @@ String::min_substr_length_containing_all_chars_of_another_str(const string &S, c
 
 int
 String::max_substr_length_containing_chars_atleast_ktimes(const string &S, int k) {
-    int i = 0;
     unordered_map<char,int> m;
     for(int i =0 ; i< S.size(); i++) {
         m[S[i]]++;
@@ -275,4 +274,80 @@ String::max_substr_length_containing_chars_atleast_ktimes(const string &S, int k
     return S.size();
 }
 
+int 
+String::__to_integer(const string &S, const int &start_idx, int final_idx) {
+    int res=0;
+    int end = S.size();
+    if (final_idx != 0) end = final_idx;
+    for(int i=start_idx; i<end; i++) {
+        res = res * 10 + (S[i]-'0');
+    }
+    return res;
+}
+
+int 
+String::__get_netmask(const string &S) {
+    int idx = S.find("/");
+    return __to_integer(S, idx+1);
+}
+
+int
+String::__get_total_fixed_chars(const string &S, const int &fixed_octets) {
+    int count = 0;
+    int i=0;
+    for(; i < S.size() && count < fixed_octets ; i++) {
+        if(S[i] == '.') {
+            count++;
+            if (count == fixed_octets) break;
+        }
+    }
+    return i;
+}
+
+string
+String::__get_fixed_prefix(const string &S, const int &fixed_octets) {
+    int num_fixed_chars = __get_total_fixed_chars(S, fixed_octets);
+    return S.substr(0, num_fixed_chars);
+}
+
+int
+String::__get_base_prefix_current_octet(const string &S, const int &fixed_octets) {
+    int start_idx = __get_total_fixed_chars(S, fixed_octets) + 1;
+    int i=start_idx;
+    for(; i < S.size(); i++) {
+        if (S[i] == '.') return __to_integer(S, start_idx, i);
+    }
+    return __to_integer(S, start_idx, S.find("/"));
+}
+
+void
+String::print_all_ips_of_subnet(const string &S) {
+    cout << "Subnet is " << S << endl;
+    vector<string> result;
+    int netmask = __get_netmask(S);
+    int fixed_octets = netmask/8;
+    string fixed_prefix = __get_fixed_prefix(S, fixed_octets);
+    cout << "FP: " << fixed_prefix << "\tNM: " << netmask << endl;
+    for(int j=4; j > fixed_octets; j--) {
+        int base_current_octet = __get_base_prefix_current_octet(S, fixed_octets);
+        cout << "Base: " << base_current_octet << endl;
+        int num_zeroes = j-fixed_octets-1;
+        string prefix = "";
+        if (fixed_prefix.size() > 0) prefix = fixed_prefix + ".";
+        while (num_zeroes > 0) {
+            prefix += to_string(base_current_octet) + ".";
+            base_current_octet = 0;
+            num_zeroes--;
+        }
+        int max_possible = base_current_octet + (1 << (8- (netmask%8)));
+        cout << " MP: " << max_possible << endl;
+        for(int i=base_current_octet; i < 256 && i < max_possible; i++) {
+            result.push_back(prefix + to_string(i));
+        }
+    }
+    for(int i=0; i<result.size(); i++) {
+        cout << result[i] << "\t";
+    }
+    cout << endl;
+}
 //hello
