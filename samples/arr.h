@@ -28,6 +28,7 @@ public:
     int median_two_sorted_arrays_same_size(int A[] , int B[], int n);
     void rotate_matrix_clockwise(vector<vector<int>> &A);
     int find_sing_occur_with_others_rep_3_times(const vector<int> &A);
+    int missing_number_among_sorted_numbers_increasing_by_one(const vector<int> &A);
 private:
     int _find_median(int A[], int n);
     int _next_element_clockwise(const vector<vector<int>> &A, int max_dist,

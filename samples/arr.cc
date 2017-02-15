@@ -215,3 +215,20 @@ Arr::find_sing_occur_with_others_rep_3_times(const vector<int> &A) {
     } 
     return ones;
 }
+
+//5,6,8,9,10,11,12
+int
+Arr::missing_number_among_sorted_numbers_increasing_by_one(const vector<int> &A) {
+    int s = 0;
+    int h = A.size()-1;
+    int mid = 0;
+    while(h - s > 1) {
+        mid = s + (h-s)/2;
+        if (h - mid == A[h] - A[mid]) {
+            h = mid;
+        } else {
+            s = mid;
+        }
+    } 
+    return A[mid]+1;
+}

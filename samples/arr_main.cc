@@ -44,10 +44,20 @@ void test4() {
          << arr_obj.find_sing_occur_with_others_rep_3_times(A) << endl;
 }
 
+void test5() {
+    cout << "-------------Executing Test: " << __func__ << endl;
+    Arr arr_obj;
+    int Ar[] = {5, 6, 8, 9, 10, 11};
+    vector<int> A(Ar, Ar+(sizeof(Ar)/sizeof(Ar[0])));
+    cout << " Missing number among sorted numbers increasing by one: "
+         << arr_obj.missing_number_among_sorted_numbers_increasing_by_one(A) << endl;
+}
+
 int main() {
     test1();
     test2();
     test3();
     test4();
+    test5();
     return 0;
 }
