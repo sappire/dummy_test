@@ -23,6 +23,33 @@ ll::alloc_node(node_t **start, int value)
 }
 
 node_t* 
+ll::create_ll_even(void)
+{
+    node_t *head = NULL;
+    node_t *tmp = NULL;
+    tmp = alloc_node(&head, 1);
+    tmp = alloc_node(&tmp, 2);
+    tmp = alloc_node(&tmp, 3);
+    tmp = alloc_node(&tmp, 4);
+    tmp = alloc_node(&tmp, 5);
+    tmp = alloc_node(&tmp, 6);
+    return head;
+}
+
+node_t* 
+ll::create_ll_odd(void)
+{
+    node_t *head = NULL;
+    node_t *tmp = NULL;
+    tmp = alloc_node(&head, 1);
+    tmp = alloc_node(&tmp, 2);
+    tmp = alloc_node(&tmp, 3);
+    tmp = alloc_node(&tmp, 4);
+    tmp = alloc_node(&tmp, 5);
+    return head;
+}
+
+node_t* 
 ll::create_ll_with_duplicates(void)
 {
     node_t *head = NULL;
@@ -200,6 +227,16 @@ ll::__is_palindrome(node_t **head1, node_t **head2)
     }
 
     return false;
+}
+       
+//1->2->3
+int
+ll::mid_ll(node_t **head) {
+    if (*head == NULL) return -1;
+    node_t *fast = *head;
+    node_t *slow = *head;
+    for(; fast != NULL && fast->next != NULL; slow = slow->next, fast = fast->next->next) ;
+    return slow->value;
 }
     
 

@@ -114,6 +114,23 @@ void test7(void)
    ll1.delete_ll(&start);
 }
 
+void test8(void)
+{
+   /* Delete target value */
+   cout << "Started Test: " << __func__ << endl;
+   ll ll1;
+   //Even
+   node_t *start = ll1.create_ll_even();
+   ll1.print_ll(start);
+   cout << "mid of ll is " << ll1.mid_ll(&start) << endl;
+   ll1.delete_ll(&start);
+   //Odd
+   start = ll1.create_ll_odd();
+   ll1.print_ll(start);
+   cout << "mid of ll is " << ll1.mid_ll(&start) << endl;
+   ll1.delete_ll(&start);
+}
+
 int main()
 {
    test1();
@@ -123,5 +140,6 @@ int main()
    test5();
    test6();
    test7();
+   test8();
    return 1;
 } 
