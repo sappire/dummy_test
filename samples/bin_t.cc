@@ -186,20 +186,23 @@ BT::height(void) {
     return __height(root1_);
 }
 
-bool
+int
 BT::__is_balanced_bt(const btnode_t *node) {
-    if (node == NULL) return true;
+    if (node == NULL) return -1;
 
-    int depth = abs(__height(node->left) - __height(node->right));
-    if ((depth <= 1) &&
-       __is_balanced_bt(node->left) && 
-       __is_balanced_bt(node->right)) return true;
-    return false;
+    int left_depth = __is_balanced_bt(node->left);
+    if (left_depth == INT_MIN) return INT_MIN;
+    int right_depth = __is_balanced_bt(node->right);
+    if (right_depth == INT_MIN) return INT_MIN;
+    int depth = abs(left_depth - right_depth);
+    int max_child_depth = max(left_depth, right_depth);
+    return (depth > 1 ? INT_MIN: max_child_depth + 1);
 }
 
 bool
 BT::is_balanced_bt(void) {
-    return __is_balanced_bt(root1_);
+    int val = __is_balanced_bt(root1_);
+    return val != INT_MIN;
 }
 
 void
@@ -422,6 +425,22 @@ BT::print_columnwise(btnode_t *root) {
         }
         cout << "--";
     }
+}
+
+//[20,10,30,5,25]
+bool
+BT::__is_validBST(btnode_t *root, int min, int max) {
+    if (root == NULL) return true;
+    if (!(root->value >= min && root->value < max)) return false;
+    return __is_validBST(root->left, min, root->value) &&
+           __is_validBST(root->right, root->value, max);
+}
+
+bool
+BT::is_validBST(btnode_t *root) {
+    if (root == NULL) return true;
+    return __is_validBST(root->left, INT_MIN, root->value) &&
+           __is_validBST(root->right, root->value, INT_MAX);
 }
 
 void

@@ -27,5 +27,5 @@ enum enabled_t{
 
 static inline const char* 
 status(enabled_t var) {
-    return (var == FALSE)?"false":"true";
+    return (var == FALSE)?"FALSE":"TRUE";
 }
