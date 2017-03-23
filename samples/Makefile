@@ -34,6 +34,9 @@ FILE_OBJECTS = $(FILE_SOURCES:.cc=.o)
 ARRAY_HEADER = arr.h
 ARRAY_SOURCES = arr.cc arr_main.cc
 ARRAY_OBJECTS = $(ARRAY_SOURCES:.cc=.o)
+CACHE_HEADER = cache.h
+CACHE_SOURCES = cache.cc cache_main.cc
+CACHE_OBJECTS = $(CACHE_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -69,6 +72,9 @@ file%.o: file_io%.cc $(FILE_HEADER)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
 arr%.o: arr%.cc $(ARRAY_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+cache%.o: cache%.cc $(CACHE_HEADER)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
@@ -108,6 +114,9 @@ arr_test: $(ARRAY_OBJECTS)
 
 dp_test: $(DP_OBJECTS)
 	$(CC) $(DP_OBJECTS) -o $@
+
+cache_test: $(CACHE_OBJECTS)
+	$(CC) $(CACHE_OBJECTS) -o $@
 
 ll_clean:
 	-rm -f $(OBJECTS)
