@@ -1,7 +1,7 @@
 #include <iostream>
 #include "ll.h"
 #include "bm.h"
-
+#include "list.h"
 using namespace std;
 
 int
@@ -131,6 +131,20 @@ void test8(void)
    ll1.delete_ll(&start);
 }
 
+void test9()
+{
+    cout << "Test List class" << endl;
+    List<int> L;
+    int val = 11;
+    L.push(val);
+    val = 21;
+    L.push(val);
+    val = 31;
+    L.push(val);
+    auto head = L.head();
+    cout << head;
+}
+
 int main()
 {
    test1();
@@ -141,5 +155,6 @@ int main()
    test6();
    test7();
    test8();
+   test9();
    return 1;
 } 
