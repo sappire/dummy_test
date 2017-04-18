@@ -145,6 +145,25 @@ void test9()
     cout << head;
 }
 
+void test10(void)
+{
+   /* Delete target value */
+   cout << "Started Test: " << __func__ << endl;
+   ll ll1;
+   //Even
+   node_t *start = ll1.create_ll_even();
+   ll1.print_ll(start);
+   int i=0;
+   for(node_t *tmp = start; tmp != NULL; tmp = tmp->next) {
+       i++;
+       if (i==2) {
+            ll1.delete_specific_node(tmp);
+            break;
+       }
+   }
+   ll1.print_ll(start);
+}
+
 int main()
 {
    test1();
@@ -156,5 +175,6 @@ int main()
    test7();
    test8();
    test9();
+   test10();
    return 1;
 } 

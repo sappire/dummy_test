@@ -238,18 +238,13 @@ ll::mid_ll(node_t **head) {
     for(; fast != NULL && fast->next != NULL; slow = slow->next, fast = fast->next->next) ;
     return slow->value;
 }
-    
 
-/*
-int main()
-{
-   ll ll1;
-   node_t *start = ll1.create_ll_with_duplicates(); 
-   ll1.print_ll(start);
-   ll1.size(&start);
-   ll1.delete_duplicates_ll(&start);
-   ll1.print_ll(start);
-   ll1.size(&start);
-   ll1.delete_ll(&start);
-   return 1;
-}*/
+void
+ll::delete_specific_node(node_t *node) {
+    if (node == NULL || node->next == NULL) return;
+    node_t *tmp = node->next;
+    node->value = node->next->value;
+    node->next = node->next->next;
+    free(tmp); 
+    return; 
+}    

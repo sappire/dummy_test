@@ -13,6 +13,7 @@ public:
     void reverse_ll(node_t **head, node_t *previous);
     void delete_ll(node_t **head);
     void delete_target_nodes_with_value(node_t **head, int target);
+    void delete_specific_node(node_t *node); //but not tail
     bool is_palindrome(node_t **head);
     size_t size(node_t **head);
     int mid_ll(node_t **head);
