@@ -222,7 +222,7 @@ BT::__pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int
 }
 
 bool
-BT::has_pathsum(int sum) {
+BT::has_pathsum_nodes(int sum) {
     vector<int> pathsum;
     unordered_map<int,vector<int> *> pathmap;
     int index = 0;
@@ -247,6 +247,22 @@ BT::has_pathsum(int sum) {
         }
     }
     return false;
+}
+
+bool
+BT::__has_pathsum(btnode_t *node, int carry_sum, const int &target) {
+    if (node == NULL) {
+        if (carry_sum == target) return true;
+        return false;
+    }
+    int curr_sum = node->value + carry_sum;
+    return __has_pathsum(node->left, curr_sum, target) ||
+           __has_pathsum(node->right, curr_sum, target);
+}
+
+bool
+BT::has_pathsum(int sum) {
+    return __has_pathsum(root1_, 0, sum);
 }
 
 void

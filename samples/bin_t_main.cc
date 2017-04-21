@@ -24,6 +24,7 @@ void bint_test1() {
     cout << "\nNUM OF NODES: " << bt.size();
     cout << "\nIS BT BALANCED? " << status((enabled_t)bt.is_balanced_bt());
     cout << "\nHAS PATH SUM 40? " << status((enabled_t)bt.has_pathsum(40));
+    cout << "\nHAS PATH SUM 40? " << status((enabled_t)bt.has_pathsum_nodes(40));
     cout << "\nINORDER_2ND TREE: ";
     bt.print_inorder(bt.root2_);
     cout << "\nTREES 1 & 2 are same ?" << status((enabled_t)bt.same_tree(bt.root1_, bt.root2_));
