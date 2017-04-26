@@ -37,6 +37,8 @@ ARRAY_OBJECTS = $(ARRAY_SOURCES:.cc=.o)
 CACHE_HEADER = cache.h
 CACHE_SOURCES = cache.cc cache_main.cc
 CACHE_OBJECTS = $(CACHE_SOURCES:.cc=.o)
+DS_SOURCES = ds_main.cc
+DS_OBJECTS = $(DS_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -75,6 +77,9 @@ arr%.o: arr%.cc $(ARRAY_HEADER)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
 cache%.o: cache%.cc $(CACHE_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+ds%.o: ds%.cc
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
@@ -117,6 +122,9 @@ dp_test: $(DP_OBJECTS)
 
 cache_test: $(CACHE_OBJECTS)
 	$(CC) $(CACHE_OBJECTS) -o $@
+
+ds_test: $(DS_OBJECTS)
+	$(CC) $(DS_OBJECTS) -o $@
 
 ll_clean:
 	-rm -f $(OBJECTS)

@@ -43,7 +43,7 @@ private:
     int __is_balanced_bt(const btnode_t *node);
     void __pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int> *> &pathmap,
                    int &index, int curr_sum);
-    bool __has_pathsum(btnode_t *node, int carry_sum, const int &target);
+    bool __has_pathsum(btnode_t *node, int carry_sum, const int &target, vector<int>& pathsum);
     void __mirror(btnode_t *node);
     void __duplicate_bt(btnode_t *node);
     void __longest_consecutive_numbers_in_path(tnode_t *node, int &max_length, 

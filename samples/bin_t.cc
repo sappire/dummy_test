@@ -250,19 +250,32 @@ BT::has_pathsum_nodes(int sum) {
 }
 
 bool
-BT::__has_pathsum(btnode_t *node, int carry_sum, const int &target) {
+BT::__has_pathsum(btnode_t *node, int carry_sum, const int &target, vector<int> &pathsum) {
     if (node == NULL) {
         if (carry_sum == target) return true;
         return false;
     }
     int curr_sum = node->value + carry_sum;
-    return __has_pathsum(node->left, curr_sum, target) ||
-           __has_pathsum(node->right, curr_sum, target);
+    pathsum.push_back(node->value);
+    bool left = __has_pathsum(node->left, curr_sum, target, pathsum);
+    if (left) return true;
+    if (node->left != NULL) pathsum.pop_back();
+    bool right = __has_pathsum(node->right, curr_sum, target, pathsum);
+    if (right) return true;
+    if (node->right != NULL) pathsum.pop_back();
+    return false;
 }
 
 bool
 BT::has_pathsum(int sum) {
-    return __has_pathsum(root1_, 0, sum);
+    vector<int> pathsum;
+    bool res = __has_pathsum(root1_, 0, sum, pathsum);
+    cout << "{";
+    for (int j=0; j < pathsum.size(); j++) {
+        cout << pathsum[j] << " ";
+    }
+    cout << "}";
+    return res;
 }
 
 void
