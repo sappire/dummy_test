@@ -53,11 +53,22 @@ void test5() {
          << arr_obj.missing_number_among_sorted_numbers_increasing_by_one(A) << endl;
 }
 
+void test6() {
+    cout << "-------------Executing Test kth largest element: " << __func__ << endl;
+    Arr arr_obj;
+    int Ar[] = {5, 8, 2, 3, 6, 11};
+    vector<int> A(Ar, Ar+(sizeof(Ar)/sizeof(Ar[0])));
+    for(int k=1 ; k <= A.size(); k++) {
+        cout << k << "th largest element is: "<< arr_obj.kth_largest_element(A, k) << endl;
+    }
+}
+
 int main() {
     test1();
     test2();
     test3();
     test4();
     test5();
+    test6();
     return 0;
 }

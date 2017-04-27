@@ -29,6 +29,7 @@ public:
     void rotate_matrix_clockwise(vector<vector<int>> &A);
     int find_sing_occur_with_others_rep_3_times(const vector<int> &A);
     int missing_number_among_sorted_numbers_increasing_by_one(const vector<int> &A);
+    int kth_largest_element(const vector<int> &A, const int &k);
 private:
     int _find_median(int A[], int n);
     int _next_element_clockwise(const vector<vector<int>> &A, int max_dist,

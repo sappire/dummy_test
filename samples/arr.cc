@@ -232,3 +232,21 @@ Arr::missing_number_among_sorted_numbers_increasing_by_one(const vector<int> &A)
     } 
     return A[mid]+1;
 }
+
+//3,2,4,6,1,5
+int
+Arr::kth_largest_element(const vector<int> &A, const int &k) {
+    if (k > A.size()) return -1;
+    priority_queue<int> pq;
+    for(int i=0; i <= A.size()-k; i++) {
+        pq.push(A[i]);
+    }
+    if (pq.size() == 0) return -1;
+    for(int i=A.size()-k+1; i < A.size(); i++) {
+        if (pq.top() > A[i]) {
+            pq.pop();
+            pq.push(A[i]);
+        }        
+    } 
+    return pq.top();
+}
