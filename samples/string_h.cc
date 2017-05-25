@@ -350,4 +350,61 @@ String::print_all_ips_of_subnet(const string &S) {
     }
     cout << endl;
 }
-//hello
+
+/*
+Given a string s, partition s such that every string of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+For example, given s = "aab",
+Return
+
+  [
+    ["a","a","b"]
+    ["aa","b"],
+  ]
+ Ordering the results in the answer : Entry i will come before Entry j if :
+len(Entryi[0]) < len(Entryj[0]) OR
+(len(Entryi[0]) == len(Entryj[0]) AND len(Entryi[1]) < len(Entryj[1])) OR
+*
+*
+*
+(len(Entryi[0]) == len(Entryj[0]) AND … len(Entryi[k] < len(Entryj[k]))
+In the given example,
+["a", "a", "b"] comes before ["aa", "b"] because len("a") < len("aa")
+*/
+
+bool
+String::_is_palindrome(const string &A) {
+    int i = 0;
+    int j = A.size()-1;
+    while(i < j) {
+        if (A[i++] != A[j--]) return false;
+    }
+    return true;
+}
+
+void 
+String::_palindrome_partition(vector<vector<string>> &res, vector<string> &curr, const string &A, int s, int e) {
+    if (s >= e) {
+        res.push_back(curr);
+        return;
+    }
+    string tmp;
+    for(int i=s ; i < e; i++) {
+        tmp = A.substr(s,i-s+1);
+        if(_is_palindrome(tmp)) {
+            curr.push_back(tmp);
+            _palindrome_partition(res, curr, A, i+1, e);
+            curr.pop_back();
+        }
+    }
+}
+
+vector<vector<string>> 
+String::palindrome_partition(const string &A) {
+    vector<vector<string>> res;
+    vector<string> curr;
+    _palindrome_partition(res, curr, A, 0, A.size());
+    return res;
+}

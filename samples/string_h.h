@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <vector>
 using namespace std;
 
 class String {
@@ -16,6 +17,7 @@ public:
     string min_substr_length_containing_all_chars_of_another_str(const string &S, const string &T);
     int max_substr_length_containing_chars_atleast_ktimes(const string &S, int k);
     void print_all_ips_of_subnet(const string &S);
+    vector<vector<string>> palindrome_partition(const string &A);
 private:
     void check_and_insert(char c, string &res);
     string _expand_around_center(const string &S, int i, int j);
@@ -26,4 +28,7 @@ private:
     int __get_total_fixed_chars(const string &S, const int &fixed_octets);
     int __get_netmask(const string &S);
     int __to_integer(const string &S, const int &start_idx, int final_idx=0);
+    void _palindrome_partition(vector<vector<string>> &res, vector<string> &curr, const string &A,
+                               int s, int e);
+    bool _is_palindrome(const string &A);
 };

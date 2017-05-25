@@ -2,7 +2,7 @@
 
 void
 stest1(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string str("hello world");
     cout << "Original String: " << str << endl;
@@ -15,7 +15,7 @@ stest1(void) {
 
 void
 stest2(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string str("Reverse the String words");
     s.reverse_words(str);
@@ -23,7 +23,7 @@ stest2(void) {
 
 void
 stest3(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string str("abcbde");
     cout << "Longest substring with no repeating characters is " 
@@ -32,7 +32,7 @@ stest3(void) {
 
 void
 stest4(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string str("ababba");
     cout << "Longest palindromic substring is "  << s.LPS(str) << endl;
@@ -40,7 +40,7 @@ stest4(void) {
 
 void
 stest5(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string str("a2[b10[c]]");
     cout << "String decoded to " << s.decode(str) << endl;
@@ -48,7 +48,7 @@ stest5(void) {
 
 void
 stest6(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string S1("33");
     std::string S2("89");
@@ -57,7 +57,7 @@ stest6(void) {
 
 void
 stest7(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string S("zxyza");
     cout << "Number of Unique substrings from qiven string \"" << S << "\" are "
@@ -66,7 +66,7 @@ stest7(void) {
 
 void
 stest8(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string S("helloworld");
     std::string T("wr");
@@ -77,7 +77,7 @@ stest8(void) {
 
 void
 stest9(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string S("abbabc");
     cout << "Max length substring of \"" << S << "\" with atleast k times characters repeated are \"" 
@@ -86,14 +86,32 @@ stest9(void) {
 
 void
 stest10(void) {
-    cout << "Started string test: " << __func__ << endl;
+    cout << "------------Started string test: " << __func__ << endl;
     String s;
     std::string S("10.10.10.0/24");
     s.print_all_ips_of_subnet(S);
 }
 
+void
+stest11(void) {
+    cout << "------------Started PALIN PARTITION test: " << __func__ << endl;
+    String s;
+    std::string S("aab");
+    auto res = s.palindrome_partition(S);
+    cout << "[" << endl;
+    for (auto it = res.begin(); it != res.end(); it++) {
+        cout << "\t[";
+        for (auto inner_it = it->begin(); inner_it != it->end(); inner_it++) {
+            cout << "\"" << *inner_it;
+            if(inner_it+1 != it->end()) cout << "\",";
+        }
+        cout << "]," << endl;
+    }
+    cout << "]\n";
+}
+
 int main() {
-/*    stest1();
+    stest1();
     stest2();
     stest3();
     stest4();
@@ -102,6 +120,7 @@ int main() {
     stest7();
     stest8();
     stest9();
-*/    stest10();
+    stest10();
+    stest11();
     return 0;
 }
