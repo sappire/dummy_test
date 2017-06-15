@@ -87,7 +87,17 @@ void dptest8(void) {
     int A = 3;
     cout << "Structurally unique BST's with \"" <<  A << "\" elements is " << d.unique_BST(A) << endl;
 }
- 
+
+void dptest9(void) {
+    cout << "--------------Started test " << __func__ << endl;
+    DP d;
+    int R1[] = {10,6,7,8,9,23,1,5,6,7,8,11};
+    vector<int> A(R1, R1+sizeof(R1)/sizeof(R1[0]));
+    cout << "Maximum profit from { ";
+    for (auto i: A) std::cout << i << ',';
+    cout << "}:--"  << d.maxProfit(A) << endl;
+}
+
 int main() {
     dptest1();
     dptest2();
@@ -97,5 +107,6 @@ int main() {
     dptest6();
     dptest7();
     dptest8();
+    dptest9();
     return 0;
 }
