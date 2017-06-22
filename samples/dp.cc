@@ -236,3 +236,35 @@ DP::maxProfit(vector<int>& prices) {
     }
     return max_profit;
 }
+
+/* Distinct Subsequences that can be formed by deleting the original characters in string S, without changing the position to look alike as string T 
+   S = "rabbbit",  T = "rabbit"
+   if S[j] == T[i]      // We need to count subsequences without current S[j] +   subsequences without current S[j] and T[i]
+   if S[j] != T[i]      // We need to count subsequences without current S[j] 
+ 
+*/ 
+
+int
+DP::distinct_subsequences(string &S, string &T) {
+    if (S.size() < T.size()) return 0;
+    vector<vector<int>> map(T.size()+1, vector<int>(S.size()+1, 0));
+
+    for(int j=0; j < map[0].size(); j++) {
+        map[0][j] = 1;
+    }
+
+    for(int i=1; i < map.size(); i++) {
+        map[i][0] = 0;
+    }
+
+    for(int i=0; i < map.size()-1; i++) {
+        for(int j=0; j < map[0].size()-1; j++) {
+            if (T[i] == S[j]) map[i+1][j+1] = map[i][j];
+            map[i+1][j+1] += map[i+1][j];
+        }
+    }
+    return map[T.size()][S.size()];
+}
+
+
+

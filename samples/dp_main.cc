@@ -98,6 +98,15 @@ void dptest9(void) {
     cout << "}:--"  << d.maxProfit(A) << endl;
 }
 
+void dptest10(void) {
+    cout << "--------------Started test " << __func__ << endl;
+    DP d;
+    string S("rabbbit");
+    string T("rabbit");
+    cout << "Num of Distinct subsequences by modifiying \"" << S << "\" to look as \"" << T << "\" are: "
+         << d.distinct_subsequences(S,T) << endl;
+}
+
 int main() {
     dptest1();
     dptest2();
@@ -108,5 +117,6 @@ int main() {
     dptest7();
     dptest8();
     dptest9();
+    dptest10();
     return 0;
 }

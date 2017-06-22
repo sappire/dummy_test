@@ -18,4 +18,5 @@ public:
     bool regex_match_dot_star(const string &A, const string &P);
     int unique_BST(int A);
     int maxProfit(vector<int>& prices);
+    int distinct_subsequences(string &S, string &T);
 };
