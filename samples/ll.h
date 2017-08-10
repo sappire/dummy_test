@@ -17,7 +17,9 @@ public:
     bool is_palindrome(node_t **head);
     size_t size(node_t **head);
     int mid_ll(node_t **head);
+    void reorder_list(node_t **head);
 private:
     node_t* alloc_node(node_t **start, int value);
     bool __is_palindrome(node_t **head1, node_t **head2);
+    bool __reorder_list(node_t **head, node_t **start);
 };

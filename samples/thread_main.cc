@@ -78,14 +78,15 @@ typedef void (*pptr)(void);
 
 void prod(void) {
     for(int i=0; i < 3; i++) {
-        cout << "i is " << i << " and thread id for prod is " << pthread_self() << endl;
         pthread_mutex_lock(&mut);
+        cout << "i is " << i << " and thread id for prod is " << pthread_self() << endl;
         while(var == 1) {
+            cout << "in while i is " << i << " and thread id for prod is " << pthread_self() << endl;
             pthread_cond_wait(&cond, &mut);
         }
         var = 1;
-        pthread_cond_signal(&cond);
         pthread_mutex_unlock(&mut);
+        pthread_cond_signal(&cond);
     }
     cout << "producer thread exiting" << endl;
 //    return NULL;
@@ -93,14 +94,15 @@ void prod(void) {
 
 void* cons(void*) {
     for(int i = 0; i < 3; i++) { 
-         cout << "i is " << i << " and thread id for cons is " << pthread_self() << endl;
          pthread_mutex_lock(&mut);
+         cout << "i is " << i << " and thread id for cons is " << pthread_self() << endl;
          while (var == 0) {
+             cout << "in while i is " << i << " and thread id for cons is " << pthread_self() << endl;
              pthread_cond_wait(&cond, &mut);
          }
          var = 0;
-         pthread_cond_signal(&cond);
          pthread_mutex_unlock(&mut);
+         pthread_cond_signal(&cond);
     }
     cout << "consumer thread exiting" << endl;
     return NULL;

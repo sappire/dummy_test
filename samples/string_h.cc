@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+
 void
 String::reverse(string &S) {
     if (S.size() < 2) return;
@@ -407,4 +408,37 @@ String::palindrome_partition(const string &A) {
     vector<string> curr;
     _palindrome_partition(res, curr, A, 0, A.size());
     return res;
+}
+
+void 
+String::insert_word(const string& word, TrieNode& root) {
+    TrieNode *tmp = &root;
+    char ch;
+    for(int i=0; i < word.size()-1; i++) {
+        ch = word[i];
+        if (tmp->arr[ch -'a'] == NULL) tmp->arr[ch-'a'] = new TrieNode();
+        tmp = tmp->arr[ch-'a'];
+    }
+    if (word.size() > 0) {
+        ch = word[word.size()-1];
+        if (tmp->arr[ch -'a'] == NULL) tmp->arr[ch-'a'] = new TrieNode(true);
+        else tmp->arr[ch -'a']->set_is_word(true);
+    }
+}
+
+bool 
+String::word_exists(const string& word, const TrieNode& root) {
+    TrieNode *tmp = const_cast<TrieNode*> (&root);
+    char ch;
+    for(int i=0; i < word.size()-1; i++) {
+        ch = word[i];
+        if(tmp->arr[ch-'a'] == NULL) return false;
+        tmp = tmp->arr[ch-'a'];
+    } 
+    if (word.size() > 0) {
+        ch = word[word.size()-1];
+        tmp = tmp->arr[ch-'a'];
+        return ((tmp != NULL) && (tmp->is_word()));
+    }
+    return false;
 }

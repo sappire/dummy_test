@@ -2,6 +2,7 @@
 #include <string>
 #include <stack>
 #include <vector>
+#include "data_structures.h"
 using namespace std;
 
 class String {
@@ -18,6 +19,8 @@ public:
     int max_substr_length_containing_chars_atleast_ktimes(const string &S, int k);
     void print_all_ips_of_subnet(const string &S);
     vector<vector<string>> palindrome_partition(const string &A);
+    void insert_word(const string& word, TrieNode & root);
+    bool word_exists(const string& S, const TrieNode & root);
 private:
     void check_and_insert(char c, string &res);
     string _expand_around_center(const string &S, int i, int j);

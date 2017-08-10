@@ -247,4 +247,42 @@ ll::delete_specific_node(node_t *node) {
     node->next = node->next->next;
     free(tmp); 
     return; 
-}    
+}
+/*
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+You must do this in-place without altering the nodes' values.
+
+For example,
+Given {1,2,3,4}, reorder it to {1,4,2,3}.
+//1,2,3,4,5
+*/
+
+bool
+ll::__reorder_list(node_t **head, node_t **start) {
+    if (*head == NULL) return true;
+
+    bool val = __reorder_list(&(*head)->next, start);
+    if (!val) return false;
+
+    if (*start == *head || (*start)->next == *head) {
+        cout << "SAshank--->" << (*start)->value << endl;
+        (*head)->next = NULL;
+        return false;
+    }
+
+    node_t *next_start = (*start)->next;
+    (*start)->next = *head;
+    (*head)->next = next_start;
+    *start = next_start;
+    return true;
+}
+
+void 
+ll::reorder_list(node_t **head) {
+    if (*head == NULL || (*head)->next == NULL) return;
+    node_t *start = *head;
+    __reorder_list(head, &start);
+}
+    

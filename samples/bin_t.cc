@@ -481,3 +481,4 @@ BT::cleanup_bt(btnode_t **node) {
     delete *node;
     *node = NULL;
 }
+

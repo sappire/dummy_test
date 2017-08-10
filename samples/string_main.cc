@@ -110,6 +110,21 @@ stest11(void) {
     cout << "]\n";
 }
 
+void
+stest12(void) {
+    cout << "------------String Trie test: " << __func__ << endl;
+    String s;
+    Trie t;
+    std::string S1("hello");
+    std::string S2("hello world");
+    s.insert_word(S1, t.get_root());
+    s.insert_word(S2, t.get_root());
+    cout << "Word \"" << S1 << "\" exists in Trie ? " << status((enabled_t)s.word_exists(S1, t.get_root())) << endl;
+    cout << "Word \"" << S2 << "\" exists in Trie ? " << status((enabled_t)s.word_exists(S2, t.get_root())) << endl;
+    std::string S3("hel");
+    cout << "Word \"" << S3 << "\" exists in Trie ? " << status((enabled_t)s.word_exists(S3, t.get_root())) << endl;
+}
+
 int main() {
     stest1();
     stest2();
@@ -122,5 +137,6 @@ int main() {
     stest9();
     stest10();
     stest11();
+    stest12();
     return 0;
 }

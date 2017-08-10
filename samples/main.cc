@@ -164,6 +164,26 @@ void test10(void)
    ll1.print_ll(start);
 }
 
+void test11(void)
+{
+   /* Reorder list as mentioned in cc file */
+   cout << "Started Test: " << __func__ << endl;
+   ll ll1;
+   node_t *start1 = ll1.create_ll_even();
+   node_t *start2 = ll1.create_ll_odd();
+
+   cout << "====Even: ";
+   ll1.print_ll(start1);
+   ll1.reorder_list(&start1);
+   ll1.print_ll(start1);
+   ll1.delete_ll(&start1);
+   cout << "====Odd: ";
+   ll1.print_ll(start2);
+   ll1.reorder_list(&start2);
+   ll1.print_ll(start2);
+   ll1.delete_ll(&start2);
+}
+
 int main()
 {
    test1();
@@ -176,5 +196,6 @@ int main()
    test8();
    test9();
    test10();
+   test11();
    return 1;
 } 
