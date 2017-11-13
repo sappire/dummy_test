@@ -472,6 +472,29 @@ BT::is_validBST(btnode_t *root) {
            __is_validBST(root->right, root->value, INT_MAX);
 }
 
+btnode_t*
+BT::bst_to_ll(btnode_t *root) {
+    btnode_t *head = NULL;
+    btnode_t *prev = NULL;
+    _bst_to_ll(root, &head, &prev);
+    if(prev != head) {
+        prev->right = head;
+        head->left = prev;
+    }
+    return head;
+}
+
+void 
+BT::_bst_to_ll(btnode_t *root, btnode_t **head, btnode_t **prev) {
+    if(root == NULL) return;
+    bst_to_ll(root->left, prev);
+    if(*prev != NULL) (*prev)->right = root;
+    root->left = *prev;
+    *prev = root;
+    _bst_to_ll(root->right, head, prev);
+    if(*head == NULL) *head = root;
+}
+
 void
 BT::cleanup_bt(btnode_t **node) {
     if (*node == NULL) return;

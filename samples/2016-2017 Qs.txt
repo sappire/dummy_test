@@ -1,0 +1,124 @@
+﻿Splunk:--
+1. Multi-producer, multi-consumer queue(Multi threading with locks) (phone round and onsite).
+2. SIGNALS, C language centric qs with heap,stack,BSS etc.. basic questions. Structure packing, padding.
+3. Find Universal node question(some thing related to a node with only incoming edges). Follow up question on how many universal nodes etc… (don’t remember clearly).
+4. Design:--- Given 1 Billion IPV4 addresses in disk which doesn’t fit in memory(4 GB RAM). How do you identify how many are reachable ipv4 addresses (discuss what is ur in-memory structure, what protocol u can use to identify reachability, how many threads ur system needs etc…)
+
+
+Arista:--
+1. Fibonacci using pointers.
+2. Dynamic stack with templates C++.
+3. What is Virtual table and internals about it in C++.
+
+
+Googl:--
+1. Minimum splits in a string so that each split is a palindrome.
+2. Intersection of 2 arrays (more about what data structures are best etc.. and code)
+3. Max length of consecutive nodes in a path of a tree (not a binary tree, could be any number of children per each node) from root to leaf node, where each node’s value increase by 1 from its immediate parent.
+4. Given 2D matrix with each cell contains integers. Compute Sum Matrix where each cell should contain sum of all the elements from (0,0) to (i,j) optimally  
+                         (like Sum[i][j] = A[i][j] + Sum[i][j-1] + Sum[i-1][j] - Sum[i-1][j-1]) 
+      5) Given an array of 0’s and 1’s. Compute the longest consecutive 1’s where you are    
+           allowed to convert atmost one single 0 to 1.
+
+
+FB:--
+1. Max subarray(number of elems) with both negative and positive integers whose sum is equal to given target.
+2. Merge K arrays (Discuss all the approaches (time complex, space complex and code the solution.).
+3. System Design:---Design a memcache server. (10 CPU’s, hyperthreading enabled, 32 GB RAM, etc..).
+4. Design:-- Given 10^9 URL’s and a 10,000 node cluster. How do you get web-page content of each of the URL with minimum internet bandwidth usage but can use high amount of internode communication within a cluster. This includes multiple different clients issuing a URL request to any node. (More about hashing the 10^9 URL’s across available nodes and then a node which received a query for a URL from a client which tries to check with the node which is responsible for actual querying of the URL,etc..)
+5. Given Preorder array of a binary search tree. Print the inorder
+(Ans):-- 1):-- Sort (O(nlogn)),         Using stack will give O(n) solution.
+6) Design:-- Given longitude, latitude of your location. Display the nearby restaurants.
+
+
+
+
+
+
+Nutanix:---
+1. Bit Compression of a stream of bits (don’t remember clearly).
+2. Search an element in a rotated sorted array.
+3. Different ways of load-balancing, different metrics that can be used as inputs for hash function for every follow up question(how do u track if a node is up or down). 
+
+
+Zscaler:--
+1. Given linked list Input:---a-> b->c->c->a->d->b->a. Convert it to below output.
+            Output :---    
+                      a --- > b → c → d
+                      |          |       |      {}
+                      a         b      c    
+                      |          
+                      a 
+       2) Implement concatenation of string in C
+       3) https://www.careercup.com/question?id=5714482551586816  
+       4) print all the ip addresses of a subnet.
+       5) Search a file to check if given target word exists. (you can only read some amount of   
+           data at once into memory. Also a word can spread from one line to another line in a 
+           file) 
+       6) Merge step in merge sort.
+       7) Trie structure related questions on do you read one byte or multiple bytes at one shot  
+           with trie data structure(something specific to interviewer’s follow up question which I 
+           don’t remember).
+
+
+Amazon:--
+1. Basic string question in phone round. Design interface for parking a vehicle(2, 4 wheeler in parking lot.
+2. Given shipping Addresses of different orders by Amazon. A fedex service will do delivery to destinations with fixed order. Implement a way to deliver the goods (Basic hashmap related question. Don’t recollect the question exactly).
+3. Design and implement LRU cache.
+4. Find missing number among sorted numbers increasing by one in an array.
+5. Some loadbalancer design with hash function and randomness.
+
+
+Linkedin:---
+1. Two Sum question on Leetcode(Q-1 on Leetcode).
+2. Find the contiguous subarray within an array (containing at least one number) which has the largest sum. (Qs:-53 on Leetcode)
+
+
+DropBox:--
+1. GameofLife question in Leetcode.(Q-289 in Leetcode).
+According to the Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+Given a board with m by n cells, each cell has an initial state live (1) or dead (0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+1. Any live cell with fewer than two live neighbors dies, as if caused by under-population.
+2. Any live cell with two or three live neighbors lives on to the next generation.
+3. Any live cell with more than three live neighbors dies, as if by over-population..
+4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+Write a function to compute the next state (after one update) of the board given its current state.
+
+
+Apstra networks:---
+1. Python List comprehensions
+2. Delete and add a node to a stack.
+
+
+
+
+Cohesity:--
+1. Power function(pow(x,n)) (Q-50 in Leetcode)
+2. Given a vector of vector of integers. Print unique numbers.
+3. Given an array which is sorted but 2 numbers are misplaced. Find them.
+4. Given a string “cohesity” with a map {c--{$,#}, e--{@}}. Generate all possible strings with substituting a character found in map with all possible values.
+                 Ex:--- cohesity, coh@sity, $ohesity, $oh@sity, #ohesity, #oh@sity
+      5)  Given a vector sum  A + B = C (where A, B, C are vector of ints). Find all pairs in A,B  
+            whose sum is equal to a value in C.
+      6)  Given a list of courses and its prerequisites. Print the courses in the order of  
+            completion. (TOPOLogical Sort)
+      7) Given a Big file of words stored in Disk. How do you sort the file. Memory is limited.
+      8)  Design hit counter to know number of hits to your API. (Standard question).
+
+
+
+
+Pure Storage:--
+1. Buddy Bit Map implementation (standard)
+https://github.com/jasonfeng1989/Tech_Interviews/blob/master/others/buddy_bitmap.py
+      2) Design and implement callback functions registering in a multithreaded environment where functions are registered and stored before an event occurs. But once the event is fired all the old functions registered should be triggered as well as any new functions registered now should also be triggered.
+
+
+Apple(Siri):---
+1. Level Order Traversal of a binary tree.
+2. Given an integer “n”. Generate a random palindrome of length n.
+3. Intersection of a linked list.
+4. Two Sum.
+5. GDB, C++ try catch exceptions, Memory allocation.
+6. Show top 5 queries in google search for each key stroke.
+7. Given a vector of vector of strings. For Example {{“a”, “e”}, {“d”, “m”, “l”}, {e}}. Generate all possible concatenations of AB. Ex output:--- {“
