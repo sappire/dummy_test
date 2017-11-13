@@ -27,5 +27,25 @@ enum enabled_t{
 
 static inline const char* 
 status(enabled_t var) {
-    return (var == FALSE)?"false":"true";
+    return (var == FALSE)?"FALSE":"TRUE";
 }
+
+class TrieNode {
+private:
+    bool _is_word;
+public:
+    TrieNode *arr[26];
+    TrieNode(bool is_word=false) {
+        _is_word = is_word;
+        for(int i=0; i < 26; i++) arr[i] = NULL;
+    }
+    void set_is_word(bool val) { _is_word = val; }
+    bool is_word(void) { return _is_word; }
+};
+
+class Trie {
+public:
+    TrieNode& get_root(void) { return _root; }
+private:
+    TrieNode _root;
+};

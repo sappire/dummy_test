@@ -22,6 +22,23 @@ BM_OBJECTS = $(BM_SOURCES:.cc=.o)
 STRING_HEADERS = string_h.h
 STRING_SOURCES = string_h.cc string_main.cc
 STRING_OBJECTS = $(STRING_SOURCES:.cc=.o)
+DP_HEADERS = dp.h
+DP_SOURCES = dp.cc dp_main.cc
+DP_OBJECTS = $(DP_SOURCES:.cc=.o)
+STACK_HEADER = stack.h
+STACK_SOURCES = stack_main.cc
+STACK_OBJECTS = $(STACK_SOURCES:.cc=.o)
+FILE_HEADER = file_io.h
+FILE_SOURCES = file_io.cc file_main.cc
+FILE_OBJECTS = $(FILE_SOURCES:.cc=.o)
+ARRAY_HEADER = arr.h
+ARRAY_SOURCES = arr.cc arr_main.cc
+ARRAY_OBJECTS = $(ARRAY_SOURCES:.cc=.o)
+CACHE_HEADER = cache.h
+CACHE_SOURCES = cache.cc cache_main.cc
+CACHE_OBJECTS = $(CACHE_SOURCES:.cc=.o)
+DS_SOURCES = ds_main.cc
+DS_OBJECTS = $(DS_SOURCES:.cc=.o)
 #OBJECTS = ll.o
 ##### ll target
 default: test
@@ -45,6 +62,24 @@ bm%.o: bm%.cc $(BM_HEADERS)
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 
 string%.o: string%.cc $(STRING_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+dp%.o: dp%.cc $(DP_HEADERS)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+stack%.o: stack%.cc $(STACK_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+file%.o: file_io%.cc $(FILE_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+arr%.o: arr%.cc $(ARRAY_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+cache%.o: cache%.cc $(CACHE_HEADER)
+	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
+
+ds%.o: ds%.cc
 	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
 #ll.o: ll.cc $(HEADERS)
 #	$(CC) $(CCFLAGS) -c $< -o $@ $(LDFLAGS)
@@ -72,6 +107,24 @@ bm_test: $(BM_OBJECTS)
 
 string_test: $(STRING_OBJECTS)
 	$(CC) $(STRING_OBJECTS) -o $@
+
+stack_test: $(STACK_OBJECTS)
+	$(CC) $(STACK_OBJECTS) -o $@
+
+file_test: $(FILE_OBJECTS)
+	$(CC) $(FILE_OBJECTS) -o $@
+
+arr_test: $(ARRAY_OBJECTS)
+	$(CC) $(ARRAY_OBJECTS) -o $@
+
+dp_test: $(DP_OBJECTS)
+	$(CC) $(DP_OBJECTS) -o $@
+
+cache_test: $(CACHE_OBJECTS)
+	$(CC) $(CACHE_OBJECTS) -o $@
+
+ds_test: $(DS_OBJECTS)
+	$(CC) $(DS_OBJECTS) -o $@
 
 ll_clean:
 	-rm -f $(OBJECTS)

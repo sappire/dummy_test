@@ -22,6 +22,7 @@ public:
     void cleanup_bt(btnode_t **node);
     int height(void);
     int size(void);
+    bool has_pathsum_nodes(int sum);
     bool has_pathsum(int sum);
     void mirror(void);
     void mirror_non_recursive(void);
@@ -31,6 +32,8 @@ public:
     int longest_consecutive_numbers_in_path(tnode_t *node);
     std::pair<int,int> return_non_matching_leaf_nodes(btnode_t *t1, btnode_t *t2);
     void print_columnwise(btnode_t *root);
+    bool is_validBST(btnode_t *root);
+    btnode_t* bst_to_ll(btnode_t *root);
     btnode_t *root1_;
     btnode_t *root2_;
     tnode_t *troot1_;
@@ -38,9 +41,10 @@ private:
     void __create_node(btnode_t **node, int value);
     int __height(const btnode_t *const node);
     int __size(const btnode_t * const node);
-    bool __is_balanced_bt(const btnode_t *node); 
+    int __is_balanced_bt(const btnode_t *node);
     void __pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int> *> &pathmap,
                    int &index, int curr_sum);
+    bool __has_pathsum(btnode_t *node, int carry_sum, const int &target, vector<int>& pathsum);
     void __mirror(btnode_t *node);
     void __duplicate_bt(btnode_t *node);
     void __longest_consecutive_numbers_in_path(tnode_t *node, int &max_length, 
@@ -48,4 +52,6 @@ private:
     btnode_t *__leaf_of_tree(stack<btnode_t *> &s);
     void __populate_columnwise(btnode_t *root, map<int,vector<int>*> &m, int key);
     void __insert_columnwise(btnode_t *node, map<int,vector<int>*> &m, int key);
+    bool __is_validBST(btnode_t *root, int min, int max);
+    void _bst_to_ll(btnode_t *root, btnode_t **head, btnode_t **prev);
 };

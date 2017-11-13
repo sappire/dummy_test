@@ -186,20 +186,23 @@ BT::height(void) {
     return __height(root1_);
 }
 
-bool
+int
 BT::__is_balanced_bt(const btnode_t *node) {
-    if (node == NULL) return true;
+    if (node == NULL) return -1;
 
-    int depth = abs(__height(node->left) - __height(node->right));
-    if ((depth <= 1) &&
-       __is_balanced_bt(node->left) && 
-       __is_balanced_bt(node->right)) return true;
-    return false;
+    int left_depth = __is_balanced_bt(node->left);
+    if (left_depth == INT_MIN) return INT_MIN;
+    int right_depth = __is_balanced_bt(node->right);
+    if (right_depth == INT_MIN) return INT_MIN;
+    int depth = abs(left_depth - right_depth);
+    int max_child_depth = max(left_depth, right_depth);
+    return (depth > 1 ? INT_MIN: max_child_depth + 1);
 }
 
 bool
 BT::is_balanced_bt(void) {
-    return __is_balanced_bt(root1_);
+    int val = __is_balanced_bt(root1_);
+    return val != INT_MIN;
 }
 
 void
@@ -219,7 +222,7 @@ BT::__pathsum(btnode_t *node, vector<int> &pathsum, unordered_map<int,vector<int
 }
 
 bool
-BT::has_pathsum(int sum) {
+BT::has_pathsum_nodes(int sum) {
     vector<int> pathsum;
     unordered_map<int,vector<int> *> pathmap;
     int index = 0;
@@ -244,6 +247,35 @@ BT::has_pathsum(int sum) {
         }
     }
     return false;
+}
+
+bool
+BT::__has_pathsum(btnode_t *node, int carry_sum, const int &target, vector<int> &pathsum) {
+    if (node == NULL) {
+        if (carry_sum == target) return true;
+        return false;
+    }
+    int curr_sum = node->value + carry_sum;
+    pathsum.push_back(node->value);
+    bool left = __has_pathsum(node->left, curr_sum, target, pathsum);
+    if (left) return true;
+    if (node->left != NULL) pathsum.pop_back();
+    bool right = __has_pathsum(node->right, curr_sum, target, pathsum);
+    if (right) return true;
+    if (node->right != NULL) pathsum.pop_back();
+    return false;
+}
+
+bool
+BT::has_pathsum(int sum) {
+    vector<int> pathsum;
+    bool res = __has_pathsum(root1_, 0, sum, pathsum);
+    cout << "{";
+    for (int j=0; j < pathsum.size(); j++) {
+        cout << pathsum[j] << " ";
+    }
+    cout << "}";
+    return res;
 }
 
 void
@@ -424,6 +456,45 @@ BT::print_columnwise(btnode_t *root) {
     }
 }
 
+//[20,10,30,5,25]
+bool
+BT::__is_validBST(btnode_t *root, int min, int max) {
+    if (root == NULL) return true;
+    if (!(root->value >= min && root->value < max)) return false;
+    return __is_validBST(root->left, min, root->value) &&
+           __is_validBST(root->right, root->value, max);
+}
+
+bool
+BT::is_validBST(btnode_t *root) {
+    if (root == NULL) return true;
+    return __is_validBST(root->left, INT_MIN, root->value) &&
+           __is_validBST(root->right, root->value, INT_MAX);
+}
+
+btnode_t*
+BT::bst_to_ll(btnode_t *root) {
+    btnode_t *head = NULL;
+    btnode_t *prev = NULL;
+    _bst_to_ll(root, &head, &prev);
+    if(prev != head) {
+        prev->right = head;
+        head->left = prev;
+    }
+    return head;
+}
+
+void 
+BT::_bst_to_ll(btnode_t *root, btnode_t **head, btnode_t **prev) {
+    if(root == NULL) return;
+    bst_to_ll(root->left, prev);
+    if(*prev != NULL) (*prev)->right = root;
+    root->left = *prev;
+    *prev = root;
+    _bst_to_ll(root->right, head, prev);
+    if(*head == NULL) *head = root;
+}
+
 void
 BT::cleanup_bt(btnode_t **node) {
     if (*node == NULL) return;
@@ -433,3 +504,4 @@ BT::cleanup_bt(btnode_t **node) {
     delete *node;
     *node = NULL;
 }
+

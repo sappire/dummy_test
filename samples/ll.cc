@@ -23,6 +23,33 @@ ll::alloc_node(node_t **start, int value)
 }
 
 node_t* 
+ll::create_ll_even(void)
+{
+    node_t *head = NULL;
+    node_t *tmp = NULL;
+    tmp = alloc_node(&head, 1);
+    tmp = alloc_node(&tmp, 2);
+    tmp = alloc_node(&tmp, 3);
+    tmp = alloc_node(&tmp, 4);
+    tmp = alloc_node(&tmp, 5);
+    tmp = alloc_node(&tmp, 6);
+    return head;
+}
+
+node_t* 
+ll::create_ll_odd(void)
+{
+    node_t *head = NULL;
+    node_t *tmp = NULL;
+    tmp = alloc_node(&head, 1);
+    tmp = alloc_node(&tmp, 2);
+    tmp = alloc_node(&tmp, 3);
+    tmp = alloc_node(&tmp, 4);
+    tmp = alloc_node(&tmp, 5);
+    return head;
+}
+
+node_t* 
 ll::create_ll_with_duplicates(void)
 {
     node_t *head = NULL;
@@ -86,6 +113,30 @@ ll::delete_duplicates_ll(node_t **head)
             }
         }
         curr = curr->next;
+    }
+}
+
+void
+ll::delete_target_nodes_with_value(node_t **head, int target)
+{
+    if (*head == NULL) return;
+    node_t *curr = *head;
+    node_t *prev = NULL;
+    while(curr != NULL) {
+        if(curr->value == target) {
+            if (curr == *head) {
+                *head = (*head)->next;
+                free(curr);
+                curr = *head;
+            } else {
+                prev->next = curr->next;
+                free(curr);
+                curr = prev->next;
+            }
+        } else {
+            prev = curr;
+            curr = curr->next;
+        }
     }
 }
 
@@ -177,18 +228,61 @@ ll::__is_palindrome(node_t **head1, node_t **head2)
 
     return false;
 }
-    
+       
+//1->2->3
+int
+ll::mid_ll(node_t **head) {
+    if (*head == NULL) return -1;
+    node_t *fast = *head;
+    node_t *slow = *head;
+    for(; fast != NULL && fast->next != NULL; slow = slow->next, fast = fast->next->next) ;
+    return slow->value;
+}
 
+void
+ll::delete_specific_node(node_t *node) {
+    if (node == NULL || node->next == NULL) return;
+    node_t *tmp = node->next;
+    node->value = node->next->value;
+    node->next = node->next->next;
+    free(tmp); 
+    return; 
+}
 /*
-int main()
-{
-   ll ll1;
-   node_t *start = ll1.create_ll_with_duplicates(); 
-   ll1.print_ll(start);
-   ll1.size(&start);
-   ll1.delete_duplicates_ll(&start);
-   ll1.print_ll(start);
-   ll1.size(&start);
-   ll1.delete_ll(&start);
-   return 1;
-}*/
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+You must do this in-place without altering the nodes' values.
+
+For example,
+Given {1,2,3,4}, reorder it to {1,4,2,3}.
+//1,2,3,4,5
+*/
+
+bool
+ll::__reorder_list(node_t **head, node_t **start) {
+    if (*head == NULL) return true;
+
+    bool val = __reorder_list(&(*head)->next, start);
+    if (!val) return false;
+
+    if (*start == *head || (*start)->next == *head) {
+        cout << "SAshank--->" << (*start)->value << endl;
+        (*head)->next = NULL;
+        return false;
+    }
+
+    node_t *next_start = (*start)->next;
+    (*start)->next = *head;
+    (*head)->next = next_start;
+    *start = next_start;
+    return true;
+}
+
+void 
+ll::reorder_list(node_t **head) {
+    if (*head == NULL || (*head)->next == NULL) return;
+    node_t *start = *head;
+    __reorder_list(head, &start);
+}
+    

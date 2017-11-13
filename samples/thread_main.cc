@@ -73,6 +73,63 @@ void ttest1() {
 //    pthread_exit(NULL);
 }
 
+typedef void* (*fptr)(void*);
+typedef void (*pptr)(void);
+
+void prod(void) {
+    for(int i=0; i < 3; i++) {
+        pthread_mutex_lock(&mut);
+        cout << "i is " << i << " and thread id for prod is " << pthread_self() << endl;
+        while(var == 1) {
+            cout << "in while i is " << i << " and thread id for prod is " << pthread_self() << endl;
+            pthread_cond_wait(&cond, &mut);
+        }
+        var = 1;
+        pthread_mutex_unlock(&mut);
+        pthread_cond_signal(&cond);
+    }
+    cout << "producer thread exiting" << endl;
+//    return NULL;
+}
+
+void* cons(void*) {
+    for(int i = 0; i < 3; i++) { 
+         pthread_mutex_lock(&mut);
+         cout << "i is " << i << " and thread id for cons is " << pthread_self() << endl;
+         while (var == 0) {
+             cout << "in while i is " << i << " and thread id for cons is " << pthread_self() << endl;
+             pthread_cond_wait(&cond, &mut);
+         }
+         var = 0;
+         pthread_mutex_unlock(&mut);
+         pthread_cond_signal(&cond);
+    }
+    cout << "consumer thread exiting" << endl;
+    return NULL;
+}
+
+void* g_fptr(void *arg) {
+    pptr p = (pptr)arg;
+    p();
+    return NULL;
+}
+
+void ttest3(void) {
+    cout << "Started test: " << __func__ << endl;
+    pthread_t tid[2];
+    pthread_mutex_init(&mut, NULL);
+    pthread_cond_init(&cond, NULL);
+    
+    fptr prod_func = &g_fptr;
+    fptr cons_func = &cons;
+    pthread_create(&tid[0], NULL, prod_func, (void*)&prod);
+    pthread_create(&tid[1], NULL, cons_func, NULL);
+    pthread_join(tid[0], NULL);
+    pthread_join(tid[1], NULL);
+    pthread_mutex_destroy(&mut);
+    pthread_cond_destroy(&cond);
+}
+
 class MyThread {
 public:
     MyThread():count_(0){;}
@@ -122,7 +179,8 @@ void ttest2() {
 }
 
 int main() {
-    ttest1();
-    ttest2();
+    //ttest1();
+    //ttest2();
+    ttest3();
     return 1;
 }

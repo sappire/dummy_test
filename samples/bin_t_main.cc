@@ -24,6 +24,7 @@ void bint_test1() {
     cout << "\nNUM OF NODES: " << bt.size();
     cout << "\nIS BT BALANCED? " << status((enabled_t)bt.is_balanced_bt());
     cout << "\nHAS PATH SUM 40? " << status((enabled_t)bt.has_pathsum(40));
+    cout << "\nHAS PATH SUM 40? " << status((enabled_t)bt.has_pathsum_nodes(40));
     cout << "\nINORDER_2ND TREE: ";
     bt.print_inorder(bt.root2_);
     cout << "\nTREES 1 & 2 are same ?" << status((enabled_t)bt.same_tree(bt.root1_, bt.root2_));
@@ -31,7 +32,8 @@ void bint_test1() {
     cout << "\nNON MATCHING LEAVES OF TWO TREES:" << res.first << "," << res.second;
     cout << "\nCOLUMN WISE PRINTING OF TREE 1: ";
     bt.print_columnwise(bt.root1_);
-
+    cout << "\nIS VALID BST 1: " << status((enabled_t)bt.is_validBST(bt.root1_));
+    
     /* Modifying Trees */
     bt.mirror_non_recursive();
     cout << "\nINORDER after MIRROR NON RECURSIVE: ";
